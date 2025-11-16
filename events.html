@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Events & Specials - Golden Fork Restaurant</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        .event-card {
+            background: var(--white);
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            margin-bottom: 2rem;
+            display: grid;
+            grid-template-columns: 300px 1fr;
+        }
+        
+        .event-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .event-content {
+            padding: 2rem;
+        }
+        
+        .event-date {
+            display: inline-block;
+            background: var(--primary-color);
+            color: var(--dark-bg);
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+        
+        .event-actions {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+        
+        .calendar-view {
+            background: var(--white);
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+            margin-bottom: 3rem;
+        }
+        
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+        
+        .calendar-day {
+            padding: 1rem;
+            text-align: center;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .calendar-day:hover {
+            background: var(--light-bg);
+        }
+        
+        .calendar-day.has-event {
+            background: var(--primary-color);
+            color: var(--white);
+        }
+        
+        @media (max-width: 768px) {
+            .event-card {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">Golden Fork</a>
+            <ul class="nav-menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="menu.html">Menu</a></li>
+                <li><a href="booking.html">Book Dish</a></li>
+                <li><a href="gallery.html">Gallery</a></li>
+                <li><a href="events.html">Events</a></li>
+                <li><a href="blog.html">Blog</a></li>
+                <li><a href="reviews.html">Reviews</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+            <button class="mobile-menu-toggle">☰</button>
+        </div>
+    </nav>
+
+    <!-- Events Section -->
+    <section class="section">
+        <div class="container">
+            <h1 class="section-title">Events & Specials</h1>
+            
+            <!-- Calendar View -->
+            <div class="calendar-view">
+                <h2>Event Calendar</h2>
+                <div class="calendar-grid" id="calendarGrid">
+                    <!-- Calendar will be generated here -->
+                </div>
+            </div>
+            
+            <!-- Events List -->
+            <div id="eventsList">
+                <!-- Events will be loaded here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Golden Fork</h3>
+                <p>Experience the finest culinary delights in a warm and welcoming atmosphere.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <a href="menu.html">Menu</a>
+                <a href="booking.html">Book Dish</a>
+                <a href="about.html">About Us</a>
+            </div>
+            <div class="footer-section">
+                <h3>Contact</h3>
+                <p>123 Restaurant Street</p>
+                <p>City, State 12345</p>
+                <p>Phone: (555) 123-4567</p>
+                <p>Email: info@goldenfork.com</p>
+            </div>
+            <div class="footer-section">
+                <h3>Follow Us</h3>
+                <a href="#">Facebook</a>
+                <a href="#">Instagram</a>
+                <a href="#">Twitter</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Golden Fork Restaurant. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="js/common.js"></script>
+    <script>
+        const events = [
+            {
+                id: 1,
+                title: 'Wine Tasting Night',
+                date: '2025-12-20',
+                time: '7:00 PM',
+                description: 'Join us for an exclusive wine tasting event featuring selections from renowned vineyards. Includes food pairings.',
+                image: 'https://images.unsplash.com/photo-1559339352-11d035aa65de?w=600',
+                price: '$45 per person'
+            },
+            {
+                id: 2,
+                title: 'Chef\'s Special Menu',
+                date: '2025-12-15',
+                time: 'All Day',
+                description: 'Experience our chef\'s specially curated menu featuring seasonal ingredients and innovative dishes.',
+                image: 'https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=600',
+                price: 'Regular menu prices'
+            },
+            {
+                id: 3,
+                title: 'Live Music Friday',
+                date: '2025-12-19',
+                time: '8:00 PM',
+                description: 'Enjoy live jazz music while dining. Every Friday night featuring local musicians.',
+                image: 'https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=600',
+                price: 'No cover charge'
+            },
+            {
+                id: 4,
+                title: 'Holiday Special Menu',
+                date: '2025-12-24',
+                time: 'All Day',
+                description: 'Celebrate the holidays with our special festive menu. Reservations recommended.',
+                image: 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=600',
+                price: 'Special pricing'
+            }
+        ];
+
+        function loadEvents() {
+            const container = document.getElementById('eventsList');
+            container.innerHTML = events.map(event => `
+                <div class="event-card">
+                    <img src="${event.image}" alt="${event.title}" class="event-image">
+                    <div class="event-content">
+                        <div class="event-date">${formatDate(event.date)} at ${event.time}</div>
+                        <h2>${event.title}</h2>
+                        <p style="color: var(--text-light); margin: 1rem 0;">${event.description}</p>
+                        <p style="font-weight: bold; color: var(--primary-color);">${event.price}</p>
+                        <div class="event-actions">
+                            <button class="btn btn-primary" onclick="rsvpEvent(${event.id})">RSVP</button>
+                            <button class="btn btn-secondary" onclick="bookEvent(${event.id})">Book Table</button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function rsvpEvent(eventId) {
+            if (!isLoggedIn()) {
+                showAlert('Please login to RSVP', 'error');
+                // No login required
+                return;
+            }
+            
+            const event = events.find(e => e.id === eventId);
+            showAlert(`RSVP confirmed for ${event.title}!`, 'success');
+        }
+
+        function bookEvent(eventId) {
+            if (!isLoggedIn()) {
+                showAlert('Please login to book a table', 'error');
+                // No login required
+                return;
+            }
+            
+            window.location.href = 'booking.html';
+        }
+
+        function generateCalendar() {
+            const grid = document.getElementById('calendarGrid');
+            const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+            
+            // Header
+            let html = days.map(day => `<div style="font-weight: bold; padding: 0.5rem;">${day}</div>`).join('');
+            
+            // Days
+            const today = new Date();
+            const currentMonth = today.getMonth();
+            const currentYear = today.getFullYear();
+            const firstDay = new Date(currentYear, currentMonth, 1).getDay();
+            const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
+            
+            // Empty cells for days before month starts
+            for (let i = 0; i < firstDay; i++) {
+                html += '<div class="calendar-day"></div>';
+            }
+            
+            // Days of the month
+            for (let day = 1; day <= daysInMonth; day++) {
+                const dateStr = `${currentYear}-${String(currentMonth + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+                const hasEvent = events.some(e => e.date.startsWith(dateStr));
+                const isToday = day === today.getDate();
+                
+                html += `<div class="calendar-day ${hasEvent ? 'has-event' : ''} ${isToday ? 'style="border: 2px solid var(--primary-color);"' : ''}" onclick="viewDayEvents('${dateStr}')">${day}</div>`;
+            }
+            
+            grid.innerHTML = html;
+        }
+
+        function viewDayEvents(date) {
+            const dayEvents = events.filter(e => e.date === date);
+            if (dayEvents.length > 0) {
+                alert(`Events on ${formatDate(date)}:\n${dayEvents.map(e => `- ${e.title} at ${e.time}`).join('\n')}`);
+            }
+        }
+
+        loadEvents();
+        generateCalendar();
+    </script>
+</body>
+</html>
+

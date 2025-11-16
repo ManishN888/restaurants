@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book a Dish - Golden Fork Restaurant</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        .booking-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .booking-steps {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 3rem;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+        
+        @media (max-width: 768px) {
+            .booking-steps {
+                flex-direction: column;
+            }
+            
+            .step {
+                margin-bottom: 0.5rem;
+            }
+            
+            .booking-container {
+                padding: 0 1rem;
+            }
+            
+            .booking-form-section {
+                padding: 1.5rem;
+            }
+            
+            .dish-selection {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .step {
+            flex: 1;
+            text-align: center;
+            padding: 1rem;
+            background: var(--light-bg);
+            border-radius: 5px;
+            position: relative;
+        }
+        
+        .step.active {
+            background: var(--primary-color);
+            color: var(--white);
+        }
+        
+        .step-number {
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            background: var(--white);
+            color: var(--primary-color);
+            border-radius: 50%;
+            line-height: 30px;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+        }
+        
+        .step.active .step-number {
+            background: var(--dark-bg);
+            color: var(--primary-color);
+        }
+        
+        .booking-form-section {
+            background: var(--white);
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+            margin-bottom: 2rem;
+        }
+        
+        .dish-selection {
+            display: grid;
+            gap: 1rem;
+        }
+        
+        .dish-option {
+            border: 2px solid #ddd;
+            padding: 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .dish-option:hover {
+            border-color: var(--primary-color);
+        }
+        
+        .dish-option.selected {
+            border-color: var(--primary-color);
+            background: rgba(212, 175, 55, 0.1);
+        }
+        
+        .quantity-selector {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .quantity-selector button {
+            width: 35px;
+            height: 35px;
+            border: 2px solid var(--primary-color);
+            background: var(--white);
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1.2rem;
+        }
+        
+        .quantity-selector input {
+            width: 60px;
+            text-align: center;
+            padding: 0.5rem;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+        }
+        
+        .booking-summary {
+            background: var(--light-bg);
+            padding: 2rem;
+            border-radius: 10px;
+            margin-top: 2rem;
+        }
+        
+        .summary-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        .total {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">Golden Fork</a>
+            <ul class="nav-menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="menu.html">Menu</a></li>
+                <li><a href="booking.html">Book Dish</a></li>
+                <li><a href="gallery.html">Gallery</a></li>
+                <li><a href="events.html">Events</a></li>
+                <li><a href="blog.html">Blog</a></li>
+                <li><a href="reviews.html">Reviews</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+            <button class="mobile-menu-toggle">☰</button>
+        </div>
+    </nav>
+
+    <!-- Booking Section -->
+    <section class="section">
+        <div class="container">
+            <h1 class="section-title">Book Your Favorite Dish</h1>
+            
+            <div class="booking-container">
+                <!-- Booking Steps -->
+                <div class="booking-steps">
+                    <div class="step active" id="step1">
+                        <div class="step-number">1</div>
+                        <div>Select Dish</div>
+                    </div>
+                    <div class="step" id="step2">
+                        <div class="step-number">2</div>
+                        <div>Choose Date & Time</div>
+                    </div>
+                    <div class="step" id="step3">
+                        <div class="step-number">3</div>
+                        <div>Your Info</div>
+                    </div>
+                    <div class="step" id="step4">
+                        <div class="step-number">4</div>
+                        <div>Confirm</div>
+                    </div>
+                </div>
+
+                <!-- Step 1: Select Dish -->
+                <div class="booking-form-section" id="section1">
+                    <h2>Select Dish</h2>
+                    <div class="dish-selection">
+                        <div class="dish-option" onclick="selectDish('Grilled Salmon', 24.99)">
+                            <h3>Grilled Salmon</h3>
+                            <p>Fresh Atlantic salmon with herbs and lemon butter sauce</p>
+                            <p class="price">$24.99</p>
+                        </div>
+                        <div class="dish-option" onclick="selectDish('Margherita Pizza', 18.99)">
+                            <h3>Margherita Pizza</h3>
+                            <p>Classic Italian pizza with fresh mozzarella and basil</p>
+                            <p class="price">$18.99</p>
+                        </div>
+                        <div class="dish-option" onclick="selectDish('Prime Rib Steak', 32.99)">
+                            <h3>Prime Rib Steak</h3>
+                            <p>Tender prime rib with roasted vegetables</p>
+                            <p class="price">$32.99</p>
+                        </div>
+                        <div class="dish-option" onclick="selectDish('Caesar Salad', 12.99)">
+                            <h3>Caesar Salad</h3>
+                            <p>Fresh romaine lettuce with Caesar dressing</p>
+                            <p class="price">$12.99</p>
+                        </div>
+                    </div>
+                    
+                    <div id="selectedDish" style="display: none; margin-top: 2rem;">
+                        <h3>Selected: <span id="dishName"></span></h3>
+                        <div class="quantity-selector">
+                            <label>Quantity:</label>
+                            <button onclick="changeQuantity(-1)">-</button>
+                            <input type="number" id="quantity" value="1" min="1" max="10">
+                            <button onclick="changeQuantity(1)">+</button>
+                        </div>
+                        <div style="margin-top: 1rem;">
+                            <label class="form-label">Special Instructions:</label>
+                            <textarea class="form-control" id="instructions" placeholder="Any special requests or dietary requirements..."></textarea>
+                        </div>
+                        <button class="btn btn-primary" onclick="nextStep(2)" style="margin-top: 1rem; width: 100%;">Continue</button>
+                    </div>
+                </div>
+
+                <!-- Step 2: Date & Time -->
+                <div class="booking-form-section" id="section2" style="display: none;">
+                    <h2>Choose Date & Time</h2>
+                    <div class="form-group">
+                        <label class="form-label">Booking Type:</label>
+                        <select class="form-control" id="bookingType">
+                            <option value="dine-in">Dine-In</option>
+                            <option value="takeaway">Takeaway</option>
+                            <option value="delivery">Delivery</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Date:</label>
+                        <input type="date" class="form-control" id="bookingDate" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Time:</label>
+                        <input type="time" class="form-control" id="bookingTime" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Number of Guests (for dine-in):</label>
+                        <input type="number" class="form-control" id="guests" value="1" min="1" max="20">
+                    </div>
+                    <div style="display: flex; gap: 1rem;">
+                        <button class="btn btn-secondary" onclick="prevStep(1)" style="flex: 1;">Back</button>
+                        <button class="btn btn-primary" onclick="nextStep(3)" style="flex: 1;">Continue</button>
+                    </div>
+                </div>
+
+                <!-- Step 3: Customer Information -->
+                <div class="booking-form-section" id="section3" style="display: none;">
+                    <h2>Your Information</h2>
+                    <div id="guestInfoForm">
+                        <div class="form-group">
+                            <label class="form-label">Full Name *</label>
+                            <input type="text" class="form-control" id="customerName" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Email *</label>
+                            <input type="email" class="form-control" id="customerEmail" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Phone *</label>
+                            <input type="tel" class="form-control" id="customerPhone" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Special Requests (Optional)</label>
+                            <textarea class="form-control" id="specialRequests" rows="3" placeholder="Any additional requests..."></textarea>
+                        </div>
+                    </div>
+                    
+                    <div style="display: flex; gap: 1rem; margin-top: 2rem;">
+                        <button class="btn btn-secondary" onclick="prevStep(2)" style="flex: 1;">Back</button>
+                        <button class="btn btn-primary" onclick="nextStep(4)" style="flex: 1;">Continue</button>
+                    </div>
+                </div>
+
+                <!-- Step 4: Confirm -->
+                <div class="booking-form-section" id="section4" style="display: none;">
+                    <h2>Confirm Booking</h2>
+                    <div class="booking-summary">
+                        <div class="summary-item">
+                            <span>Dish:</span>
+                            <span id="summaryDish"></span>
+                        </div>
+                        <div class="summary-item">
+                            <span>Quantity:</span>
+                            <span id="summaryQuantity"></span>
+                        </div>
+                        <div class="summary-item">
+                            <span>Booking Type:</span>
+                            <span id="summaryType"></span>
+                        </div>
+                        <div class="summary-item">
+                            <span>Date & Time:</span>
+                            <span id="summaryDateTime"></span>
+                        </div>
+                        <div class="summary-item">
+                            <span>Guests:</span>
+                            <span id="summaryGuests"></span>
+                        </div>
+                        <div class="summary-item">
+                            <span>Name:</span>
+                            <span id="summaryName"></span>
+                        </div>
+                        <div class="summary-item">
+                            <span>Email:</span>
+                            <span id="summaryEmail"></span>
+                        </div>
+                        <div class="summary-item">
+                            <span>Phone:</span>
+                            <span id="summaryPhone"></span>
+                        </div>
+                        <div class="summary-item">
+                            <span>Subtotal:</span>
+                            <span id="summarySubtotal"></span>
+                        </div>
+                        <div class="summary-item">
+                            <span>Total:</span>
+                            <span class="total" id="summaryTotal"></span>
+                        </div>
+                    </div>
+                    
+                    <div style="display: flex; gap: 1rem; margin-top: 2rem;">
+                        <button class="btn btn-secondary" onclick="prevStep(3)" style="flex: 1;">Back</button>
+                        <button class="btn btn-primary" onclick="confirmBooking()" style="flex: 1;">Confirm Booking</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Golden Fork</h3>
+                <p>Experience the finest culinary delights in a warm and welcoming atmosphere.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <a href="menu.html">Menu</a>
+                <a href="booking.html">Book Dish</a>
+                <a href="about.html">About Us</a>
+            </div>
+            <div class="footer-section">
+                <h3>Contact</h3>
+                <p>123 Restaurant Street</p>
+                <p>City, State 12345</p>
+                <p>Phone: (555) 123-4567</p>
+                <p>Email: info@goldenfork.com</p>
+            </div>
+            <div class="footer-section">
+                <h3>Follow Us</h3>
+                <a href="#">Facebook</a>
+                <a href="#">Instagram</a>
+                <a href="#">Twitter</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Golden Fork Restaurant. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="js/common.js"></script>
+    <script>
+        let bookingData = {
+            dish: null,
+            price: 0,
+            quantity: 1,
+            instructions: '',
+            type: 'dine-in',
+            date: '',
+            time: '',
+            guests: 1
+        };
+
+        // Set minimum date to today
+        document.getElementById('bookingDate').min = new Date().toISOString().split('T')[0];
+
+        function selectDish(name, price) {
+            document.querySelectorAll('.dish-option').forEach(opt => opt.classList.remove('selected'));
+            event.currentTarget.classList.add('selected');
+            
+            bookingData.dish = name;
+            bookingData.price = price;
+            
+            document.getElementById('dishName').textContent = name;
+            document.getElementById('selectedDish').style.display = 'block';
+        }
+
+        function changeQuantity(delta) {
+            const input = document.getElementById('quantity');
+            let value = parseInt(input.value) + delta;
+            if (value >= 1 && value <= 10) {
+                input.value = value;
+                bookingData.quantity = value;
+            }
+        }
+
+        function nextStep(step) {
+            // Hide all sections
+            document.querySelectorAll('.booking-form-section').forEach(s => s.style.display = 'none');
+            document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+            
+            // Show current section
+            document.getElementById(`section${step}`).style.display = 'block';
+            document.getElementById(`step${step}`).classList.add('active');
+            
+            if (step === 4) {
+                updateSummary();
+            }
+        }
+
+        function prevStep(step) {
+            nextStep(step);
+        }
+
+        function updateSummary() {
+            bookingData.type = document.getElementById('bookingType').value;
+            bookingData.date = document.getElementById('bookingDate').value;
+            bookingData.time = document.getElementById('bookingTime').value;
+            bookingData.guests = document.getElementById('guests').value;
+            bookingData.instructions = document.getElementById('instructions').value;
+            bookingData.customerName = document.getElementById('customerName').value;
+            bookingData.customerEmail = document.getElementById('customerEmail').value;
+            bookingData.customerPhone = document.getElementById('customerPhone').value;
+            bookingData.specialRequests = document.getElementById('specialRequests').value;
+            
+            document.getElementById('summaryDish').textContent = bookingData.dish;
+            document.getElementById('summaryQuantity').textContent = bookingData.quantity;
+            document.getElementById('summaryType').textContent = bookingData.type.charAt(0).toUpperCase() + bookingData.type.slice(1);
+            document.getElementById('summaryDateTime').textContent = `${bookingData.date} at ${bookingData.time}`;
+            document.getElementById('summaryGuests').textContent = bookingData.guests;
+            document.getElementById('summaryName').textContent = bookingData.customerName;
+            document.getElementById('summaryEmail').textContent = bookingData.customerEmail;
+            document.getElementById('summaryPhone').textContent = bookingData.customerPhone;
+            
+            const subtotal = bookingData.price * bookingData.quantity;
+            document.getElementById('summarySubtotal').textContent = `$${subtotal.toFixed(2)}`;
+            document.getElementById('summaryTotal').textContent = `$${subtotal.toFixed(2)}`;
+        }
+
+        function confirmBooking() {
+            if (!bookingData.dish || !bookingData.date || !bookingData.time) {
+                showAlert('Please fill in all required fields', 'error');
+                return;
+            }
+
+            if (!bookingData.customerName || !bookingData.customerEmail || !bookingData.customerPhone) {
+                showAlert('Please fill in all customer information', 'error');
+                return;
+            }
+
+            // Save booking (works for both logged in and guest users)
+            let bookings = storage.get('bookings') || [];
+            const currentUser = getCurrentUser();
+            const booking = {
+                id: Date.now(),
+                ...bookingData,
+                userId: currentUser ? currentUser.id : null,
+                isGuest: !currentUser,
+                status: 'confirmed',
+                createdAt: new Date().toISOString()
+            };
+            bookings.push(booking);
+            storage.set('bookings', bookings);
+
+            showAlert('Booking confirmed successfully! You will receive a confirmation email shortly.', 'success');
+            setTimeout(() => {
+                if (currentUser) {
+                    window.location.href = 'profile.html';
+                } else {
+                    window.location.href = 'index.html';
+                }
+            }, 2000);
+        }
+    </script>
+</body>
+</html>
+

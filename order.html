@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Online - Golden Fork Restaurant</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        .order-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .order-layout {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 2rem;
+        }
+        
+        .cart-section {
+            background: var(--white);
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 100px;
+            height: fit-content;
+        }
+        
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        .cart-item-info {
+            flex: 1;
+        }
+        
+        .cart-item-controls {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .quantity-control {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .quantity-control button {
+            width: 30px;
+            height: 30px;
+            border: 1px solid #ddd;
+            background: var(--white);
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        
+        .cart-summary {
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 2px solid var(--primary-color);
+        }
+        
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+        }
+        
+        .summary-total {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+        
+        .order-tabs {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        
+        .tab-btn {
+            flex: 1;
+            padding: 1rem;
+            border: 2px solid var(--primary-color);
+            background: var(--white);
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .tab-btn.active {
+            background: var(--primary-color);
+            color: var(--white);
+        }
+        
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        @media (max-width: 968px) {
+            .order-layout {
+                grid-template-columns: 1fr;
+            }
+            
+            .cart-section {
+                position: relative;
+                top: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">Golden Fork</a>
+            <ul class="nav-menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="menu.html">Menu</a></li>
+                <li><a href="booking.html">Book Dish</a></li>
+                <li><a href="order.html">Order Online</a></li>
+                <li><a href="gallery.html">Gallery</a></li>
+                <li><a href="events.html">Events</a></li>
+                <li><a href="blog.html">Blog</a></li>
+                <li><a href="reviews.html">Reviews</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+            <div class="user-actions">
+                <a href="login.html" class="btn btn-secondary">Login</a>
+                <a href="register.html" class="btn btn-primary">Sign Up</a>
+            </div>
+            <button class="mobile-menu-toggle">☰</button>
+        </div>
+    </nav>
+
+    <!-- Order Section -->
+    <section class="section">
+        <div class="container order-container">
+            <h1 class="section-title">Order Online</h1>
+            
+            <div class="order-layout">
+                <!-- Menu Items -->
+                <div>
+                    <div class="order-tabs">
+                        <button class="tab-btn active" onclick="filterMenu('all')">All</button>
+                        <button class="tab-btn" onclick="filterMenu('appetizers')">Appetizers</button>
+                        <button class="tab-btn" onclick="filterMenu('mains')">Mains</button>
+                        <button class="tab-btn" onclick="filterMenu('desserts')">Desserts</button>
+                        <button class="tab-btn" onclick="filterMenu('beverages')">Beverages</button>
+                    </div>
+                    
+                    <div class="menu-grid" id="menuGrid">
+                        <!-- Menu items will be loaded here -->
+                    </div>
+                </div>
+                
+                <!-- Cart -->
+                <div class="cart-section">
+                    <h2>Your Cart</h2>
+                    <div id="cartItems">
+                        <p style="text-align: center; color: var(--text-light); padding: 2rem;">Your cart is empty</p>
+                    </div>
+                    
+                    <div class="cart-summary" id="cartSummary" style="display: none;">
+                        <div class="summary-row">
+                            <span>Subtotal:</span>
+                            <span id="subtotal">$0.00</span>
+                        </div>
+                        <div class="summary-row">
+                            <span>Delivery Fee:</span>
+                            <span id="deliveryFee">$5.00</span>
+                        </div>
+                        <div class="summary-row">
+                            <span>Tax:</span>
+                            <span id="tax">$0.00</span>
+                        </div>
+                        <div class="summary-row summary-total">
+                            <span>Total:</span>
+                            <span id="total">$0.00</span>
+                        </div>
+                        
+                        <button class="btn btn-primary" onclick="checkout()" style="width: 100%; margin-top: 1rem;">Checkout</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Golden Fork</h3>
+                <p>Experience the finest culinary delights in a warm and welcoming atmosphere.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <a href="menu.html">Menu</a>
+                <a href="booking.html">Book Dish</a>
+                <a href="order.html">Order Online</a>
+                <a href="about.html">About Us</a>
+            </div>
+            <div class="footer-section">
+                <h3>Contact</h3>
+                <p>123 Restaurant Street</p>
+                <p>City, State 12345</p>
+                <p>Phone: (555) 123-4567</p>
+                <p>Email: info@goldenfork.com</p>
+            </div>
+            <div class="footer-section">
+                <h3>Follow Us</h3>
+                <a href="#">Facebook</a>
+                <a href="#">Instagram</a>
+                <a href="#">Twitter</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Golden Fork Restaurant. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="js/common.js"></script>
+    <script>
+        const menuItems = [
+            { name: 'Caesar Salad', price: 12.99, category: 'appetizers', image: 'https://images.unsplash.com/photo-1544025162-d76694265947?w=200' },
+            { name: 'Bruschetta', price: 9.99, category: 'appetizers', image: 'https://images.unsplash.com/photo-1529692236671-f1f6cf9683ba?w=200' },
+            { name: 'Grilled Salmon', price: 24.99, category: 'mains', image: 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=200' },
+            { name: 'Margherita Pizza', price: 18.99, category: 'mains', image: 'https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=200' },
+            { name: 'Prime Rib Steak', price: 32.99, category: 'mains', image: 'https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=200' },
+            { name: 'Vegetarian Pasta', price: 16.99, category: 'mains', image: 'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=200' },
+            { name: 'Chocolate Lava Cake', price: 8.99, category: 'desserts', image: 'https://images.unsplash.com/photo-1551024506-0bccd828d307?w=200' },
+            { name: 'Tiramisu', price: 7.99, category: 'desserts', image: 'https://images.unsplash.com/photo-1567206563064-6f60f40a2b57?w=200' },
+            { name: 'Fresh Orange Juice', price: 4.99, category: 'beverages', image: 'https://images.unsplash.com/photo-1513475382585-d06e58bcb0e0?w=200' }
+        ];
+
+        function loadMenu(category = 'all') {
+            const grid = document.getElementById('menuGrid');
+            const filtered = category === 'all' ? menuItems : menuItems.filter(item => item.category === category);
+            
+            grid.innerHTML = filtered.map(item => `
+                <div class="card">
+                    <img src="${item.image}" alt="${item.name}" class="card-img" style="height: 150px;">
+                    <div class="card-body">
+                        <h3 class="card-title" style="font-size: 1.1rem;">${item.name}</h3>
+                        <p class="price" style="margin: 1rem 0;">$${item.price.toFixed(2)}</p>
+                        <button class="btn btn-primary" onclick="addToCart('${item.name}', ${item.price})" style="width: 100%;">Add to Cart</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function filterMenu(category) {
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            loadMenu(category);
+        }
+
+        function addToCart(name, price) {
+            if (!isLoggedIn()) {
+                showAlert('Please login to add items to cart', 'error');
+                setTimeout(() => window.location.href = 'login.html', 2000);
+                return;
+            }
+            
+            let cart = storage.get('cart') || [];
+            const existingItem = cart.find(item => item.name === name);
+            
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({ name: name, price: price, quantity: 1 });
+            }
+            
+            storage.set('cart', cart);
+            updateCart();
+            showAlert(`${name} added to cart!`, 'success');
+        }
+
+        function updateCart() {
+            const cart = storage.get('cart') || [];
+            const container = document.getElementById('cartItems');
+            const summary = document.getElementById('cartSummary');
+            
+            if (cart.length === 0) {
+                container.innerHTML = '<p style="text-align: center; color: var(--text-light); padding: 2rem;">Your cart is empty</p>';
+                summary.style.display = 'none';
+                return;
+            }
+            
+            container.innerHTML = cart.map(item => `
+                <div class="cart-item">
+                    <div class="cart-item-info">
+                        <strong>${item.name}</strong>
+                        <p style="color: var(--text-light); font-size: 0.9rem;">$${item.price.toFixed(2)} each</p>
+                    </div>
+                    <div class="cart-item-controls">
+                        <div class="quantity-control">
+                            <button onclick="updateQuantity('${item.name}', -1)">-</button>
+                            <span>${item.quantity}</span>
+                            <button onclick="updateQuantity('${item.name}', 1)">+</button>
+                        </div>
+                        <span style="font-weight: bold; min-width: 60px; text-align: right;">$${(item.price * item.quantity).toFixed(2)}</span>
+                        <button onclick="removeFromCart('${item.name}')" style="background: var(--danger); color: white; border: none; padding: 0.25rem 0.5rem; border-radius: 3px; cursor: pointer;">×</button>
+                    </div>
+                </div>
+            `).join('');
+            
+            // Calculate totals
+            const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            const deliveryFee = 5.00;
+            const tax = subtotal * 0.1;
+            const total = subtotal + deliveryFee + tax;
+            
+            document.getElementById('subtotal').textContent = `$${subtotal.toFixed(2)}`;
+            document.getElementById('deliveryFee').textContent = `$${deliveryFee.toFixed(2)}`;
+            document.getElementById('tax').textContent = `$${tax.toFixed(2)}`;
+            document.getElementById('total').textContent = `$${total.toFixed(2)}`;
+            
+            summary.style.display = 'block';
+        }
+
+        function updateQuantity(name, delta) {
+            let cart = storage.get('cart') || [];
+            const item = cart.find(i => i.name === name);
+            
+            if (item) {
+                item.quantity += delta;
+                if (item.quantity <= 0) {
+                    cart = cart.filter(i => i.name !== name);
+                }
+                storage.set('cart', cart);
+                updateCart();
+            }
+        }
+
+        function removeFromCart(name) {
+            let cart = storage.get('cart') || [];
+            cart = cart.filter(item => item.name !== name);
+            storage.set('cart', cart);
+            updateCart();
+        }
+
+        function checkout() {
+            if (!isLoggedIn()) {
+                showAlert('Please login to checkout', 'error');
+                setTimeout(() => window.location.href = 'login.html', 2000);
+                return;
+            }
+            
+            const cart = storage.get('cart') || [];
+            if (cart.length === 0) {
+                showAlert('Your cart is empty', 'error');
+                return;
+            }
+            
+            // Create order
+            const order = {
+                id: Date.now(),
+                items: cart,
+                status: 'preparing',
+                createdAt: new Date().toISOString()
+            };
+            
+            let orders = storage.get('orders') || [];
+            orders.push(order);
+            storage.set('orders', orders);
+            
+            // Clear cart
+            storage.remove('cart');
+            
+            showAlert('Order placed successfully!', 'success');
+            setTimeout(() => {
+                window.location.href = 'profile.html';
+            }, 2000);
+        }
+
+        // Load menu and cart on page load
+        loadMenu();
+        updateCart();
+    </script>
+</body>
+</html>
+

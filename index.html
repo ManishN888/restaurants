@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Golden Fork Restaurant - Home</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        .featured-dishes {
+            background: var(--light-bg);
+        }
+        
+        .search-bar {
+            max-width: 600px;
+            margin: 2rem auto;
+            position: relative;
+        }
+        
+        .search-bar input {
+            width: 100%;
+            padding: 1rem 3rem 1rem 1.5rem;
+            border: 2px solid var(--primary-color);
+            border-radius: 50px;
+            font-size: 1rem;
+        }
+        
+        .search-bar button {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: var(--primary-color);
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            cursor: pointer;
+        }
+        
+        .testimonials {
+            background: var(--dark-bg);
+            color: var(--white);
+        }
+        
+        .testimonial-card {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 2rem;
+            border-radius: 10px;
+            text-align: center;
+        }
+        
+        .testimonial-card .rating {
+            justify-content: center;
+            margin-bottom: 1rem;
+        }
+        
+        .quick-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+            margin-top: 2rem;
+        }
+        
+        .quick-link-card {
+            background: var(--white);
+            padding: 2rem;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s;
+            min-width: 200px;
+        }
+        
+        .quick-link-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .quick-link-card .icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">Golden Fork</a>
+            <ul class="nav-menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="menu.html">Menu</a></li>
+                <li><a href="booking.html">Book Dish</a></li>
+                <li><a href="gallery.html">Gallery</a></li>
+                <li><a href="events.html">Events</a></li>
+                <li><a href="blog.html">Blog</a></li>
+                <li><a href="reviews.html">Reviews</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+            <button class="mobile-menu-toggle">☰</button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Welcome to Golden Fork</h1>
+            <p>Experience Culinary Excellence</p>
+            <div class="quick-links">
+                <a href="menu.html" class="btn btn-primary">View Menu</a>
+                <a href="booking.html" class="btn btn-secondary">Book a Table</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Search Bar -->
+    <section class="section">
+        <div class="container">
+            <div class="search-bar">
+                <input type="text" id="menuSearch" placeholder="Search for dishes...">
+                <button onclick="searchMenu()">🔍</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Dishes -->
+    <section class="section featured-dishes">
+        <div class="container">
+            <h2 class="section-title">Featured Dishes</h2>
+            <div class="grid grid-3">
+                <div class="card">
+                    <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400" alt="Grilled Salmon" class="card-img">
+                    <div class="card-body">
+                        <h3 class="card-title">Grilled Salmon</h3>
+                        <p class="card-text">Fresh Atlantic salmon with herbs and lemon butter sauce</p>
+                        <div class="rating-display">
+                            <span class="rating-value">4.8</span>
+                            <div class="rating">
+                                <span class="star filled">★</span>
+                                <span class="star filled">★</span>
+                                <span class="star filled">★</span>
+                                <span class="star filled">★</span>
+                                <span class="star filled">★</span>
+                            </div>
+                        </div>
+                        <p style="font-size: 1.2rem; font-weight: bold; color: var(--primary-color); margin-top: 1rem;">$24.99</p>
+                        <a href="menu.html" class="btn btn-primary" style="margin-top: 1rem; display: block; text-align: center;">View Details</a>
+                    </div>
+                </div>
+                <div class="card">
+                    <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=400" alt="Margherita Pizza" class="card-img">
+                    <div class="card-body">
+                        <h3 class="card-title">Margherita Pizza</h3>
+                        <p class="card-text">Classic Italian pizza with fresh mozzarella and basil</p>
+                        <div class="rating-display">
+                            <span class="rating-value">4.9</span>
+                            <div class="rating">
+                                <span class="star filled">★</span>
+                                <span class="star filled">★</span>
+                                <span class="star filled">★</span>
+                                <span class="star filled">★</span>
+                                <span class="star filled">★</span>
+                            </div>
+                        </div>
+                        <p style="font-size: 1.2rem; font-weight: bold; color: var(--primary-color); margin-top: 1rem;">$18.99</p>
+                        <a href="menu.html" class="btn btn-primary" style="margin-top: 1rem; display: block; text-align: center;">View Details</a>
+                    </div>
+                </div>
+                <div class="card">
+                    <img src="https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=400" alt="Beef Steak" class="card-img">
+                    <div class="card-body">
+                        <h3 class="card-title">Prime Rib Steak</h3>
+                        <p class="card-text">Tender prime rib with roasted vegetables and red wine sauce</p>
+                        <div class="rating-display">
+                            <span class="rating-value">4.7</span>
+                            <div class="rating">
+                                <span class="star filled">★</span>
+                                <span class="star filled">★</span>
+                                <span class="star filled">★</span>
+                                <span class="star filled">★</span>
+                                <span class="star">★</span>
+                            </div>
+                        </div>
+                        <p style="font-size: 1.2rem; font-weight: bold; color: var(--primary-color); margin-top: 1rem;">$32.99</p>
+                        <a href="menu.html" class="btn btn-primary" style="margin-top: 1rem; display: block; text-align: center;">View Details</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quick Links -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Quick Access</h2>
+            <div class="quick-links">
+                <a href="menu.html" class="quick-link-card">
+                    <div class="icon">🍽️</div>
+                    <h3>View Menu</h3>
+                    <p>Explore our delicious dishes</p>
+                </a>
+                <a href="booking.html" class="quick-link-card">
+                    <div class="icon">📅</div>
+                    <h3>Book Dish</h3>
+                    <p>Reserve your favorite meal</p>
+                </a>
+                <a href="rating.html" class="quick-link-card">
+                    <div class="icon">⭐</div>
+                    <h3>Rate Us</h3>
+                    <p>Share your experience</p>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="section testimonials">
+        <div class="container">
+            <h2 class="section-title" style="color: var(--white);">What Our Customers Say</h2>
+            <div class="grid grid-3">
+                <div class="testimonial-card">
+                    <div class="rating">
+                        <span class="star filled">★</span>
+                        <span class="star filled">★</span>
+                        <span class="star filled">★</span>
+                        <span class="star filled">★</span>
+                        <span class="star filled">★</span>
+                    </div>
+                    <p>"Amazing food and excellent service! The grilled salmon was perfectly cooked."</p>
+                    <p style="margin-top: 1rem; font-weight: bold;">- Sarah Johnson</p>
+                </div>
+                <div class="testimonial-card">
+                    <div class="rating">
+                        <span class="star filled">★</span>
+                        <span class="star filled">★</span>
+                        <span class="star filled">★</span>
+                        <span class="star filled">★</span>
+                        <span class="star filled">★</span>
+                    </div>
+                    <p>"Best restaurant in town! The ambiance is wonderful and the staff is very friendly."</p>
+                    <p style="margin-top: 1rem; font-weight: bold;">- Michael Chen</p>
+                </div>
+                <div class="testimonial-card">
+                    <div class="rating">
+                        <span class="star filled">★</span>
+                        <span class="star filled">★</span>
+                        <span class="star filled">★</span>
+                        <span class="star filled">★</span>
+                        <span class="star">★</span>
+                    </div>
+                    <p>"Great variety of dishes and reasonable prices. Highly recommended!"</p>
+                    <p style="margin-top: 1rem; font-weight: bold;">- Emily Davis</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Golden Fork</h3>
+                <p>Experience the finest culinary delights in a warm and welcoming atmosphere.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <a href="menu.html">Menu</a>
+                <a href="booking.html">Book Dish</a>
+                <a href="about.html">About Us</a>
+            </div>
+            <div class="footer-section">
+                <h3>Contact</h3>
+                <p>123 Restaurant Street</p>
+                <p>City, State 12345</p>
+                <p>Phone: (555) 123-4567</p>
+                <p>Email: info@goldenfork.com</p>
+            </div>
+            <div class="footer-section">
+                <h3>Follow Us</h3>
+                <a href="#">Facebook</a>
+                <a href="#">Instagram</a>
+                <a href="#">Twitter</a>
+                <a href="#">LinkedIn</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Golden Fork Restaurant. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="js/common.js"></script>
+    <script>
+        function searchMenu() {
+            const query = document.getElementById('menuSearch').value;
+            if (query.trim()) {
+                window.location.href = `menu.html?search=${encodeURIComponent(query)}`;
+            }
+        }
+        
+        document.getElementById('menuSearch').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                searchMenu();
+            }
+        });
+    </script>
+</body>
+</html>
+

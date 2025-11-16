@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog - Golden Fork Restaurant</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        .blog-layout {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 3rem;
+        }
+        
+        .blog-post {
+            background: var(--white);
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            margin-bottom: 2rem;
+        }
+        
+        .blog-post-image {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+        }
+        
+        .blog-post-content {
+            padding: 2rem;
+        }
+        
+        .blog-meta {
+            display: flex;
+            gap: 1rem;
+            color: var(--text-light);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+        
+        .blog-excerpt {
+            color: var(--text-light);
+            margin: 1rem 0;
+        }
+        
+        .blog-sidebar {
+            background: var(--light-bg);
+            padding: 2rem;
+            border-radius: 10px;
+            height: fit-content;
+            position: sticky;
+            top: 100px;
+        }
+        
+        .sidebar-section {
+            margin-bottom: 2rem;
+        }
+        
+        .recent-posts {
+            list-style: none;
+        }
+        
+        .recent-posts li {
+            padding: 0.75rem 0;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        .recent-posts li:last-child {
+            border-bottom: none;
+        }
+        
+        .tag-cloud {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+        
+        .tag {
+            padding: 0.5rem 1rem;
+            background: var(--white);
+            border-radius: 20px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .tag:hover {
+            background: var(--primary-color);
+            color: var(--white);
+        }
+        
+        @media (max-width: 968px) {
+            .blog-layout {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">Golden Fork</a>
+            <ul class="nav-menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="menu.html">Menu</a></li>
+                <li><a href="booking.html">Book Dish</a></li>
+                <li><a href="gallery.html">Gallery</a></li>
+                <li><a href="events.html">Events</a></li>
+                <li><a href="blog.html">Blog</a></li>
+                <li><a href="reviews.html">Reviews</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+            <button class="mobile-menu-toggle">☰</button>
+        </div>
+    </nav>
+
+    <!-- Blog Section -->
+    <section class="section">
+        <div class="container">
+            <h1 class="section-title">Our Blog</h1>
+            
+            <div class="blog-layout">
+                <!-- Blog Posts -->
+                <div id="blogPosts">
+                    <!-- Posts will be loaded here -->
+                </div>
+                
+                <!-- Sidebar -->
+                <div class="blog-sidebar">
+                    <div class="sidebar-section">
+                        <h3>Recent Posts</h3>
+                        <ul class="recent-posts" id="recentPosts">
+                            <!-- Recent posts will be loaded here -->
+                        </ul>
+                    </div>
+                    
+                    <div class="sidebar-section">
+                        <h3>Categories</h3>
+                        <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+                            <a href="#" style="color: var(--text-dark); text-decoration: none; padding: 0.5rem 0;">Recipes</a>
+                            <a href="#" style="color: var(--text-dark); text-decoration: none; padding: 0.5rem 0;">Restaurant News</a>
+                            <a href="#" style="color: var(--text-dark); text-decoration: none; padding: 0.5rem 0;">Cooking Tips</a>
+                            <a href="#" style="color: var(--text-dark); text-decoration: none; padding: 0.5rem 0;">Events</a>
+                        </div>
+                    </div>
+                    
+                    <div class="sidebar-section">
+                        <h3>Tags</h3>
+                        <div class="tag-cloud">
+                            <span class="tag">Italian</span>
+                            <span class="tag">Seafood</span>
+                            <span class="tag">Desserts</span>
+                            <span class="tag">Healthy</span>
+                            <span class="tag">Vegetarian</span>
+                            <span class="tag">Recipes</span>
+                        </div>
+                    </div>
+                    
+                    <div class="sidebar-section">
+                        <h3>Newsletter</h3>
+                        <p style="font-size: 0.9rem; color: var(--text-light); margin-bottom: 1rem;">Subscribe to get updates</p>
+                        <input type="email" class="form-control" placeholder="Your email" style="margin-bottom: 0.5rem;">
+                        <button class="btn btn-primary" style="width: 100%;" onclick="showAlert('Subscribed successfully!', 'success')">Subscribe</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Golden Fork</h3>
+                <p>Experience the finest culinary delights in a warm and welcoming atmosphere.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <a href="menu.html">Menu</a>
+                <a href="booking.html">Book Dish</a>
+                <a href="about.html">About Us</a>
+            </div>
+            <div class="footer-section">
+                <h3>Contact</h3>
+                <p>123 Restaurant Street</p>
+                <p>City, State 12345</p>
+                <p>Phone: (555) 123-4567</p>
+                <p>Email: info@goldenfork.com</p>
+            </div>
+            <div class="footer-section">
+                <h3>Follow Us</h3>
+                <a href="#">Facebook</a>
+                <a href="#">Instagram</a>
+                <a href="#">Twitter</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Golden Fork Restaurant. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="js/common.js"></script>
+    <script>
+        const blogPosts = [
+            {
+                id: 1,
+                title: 'The Art of Perfect Pasta',
+                excerpt: 'Learn the secrets behind creating the perfect pasta dish, from choosing the right ingredients to mastering the cooking technique.',
+                image: 'https://images.unsplash.com/photo-1551462147-858e8c5e0e7e?w=800',
+                date: '2025-12-10',
+                author: 'Chef Michael Johnson',
+                category: 'Recipes',
+                content: 'Full article content here...'
+            },
+            {
+                id: 2,
+                title: 'Seasonal Menu Update',
+                excerpt: 'We\'re excited to introduce our new seasonal menu featuring fresh, locally-sourced ingredients and innovative flavor combinations.',
+                image: 'https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=800',
+                date: '2025-12-05',
+                author: 'Golden Fork Team',
+                category: 'Restaurant News',
+                content: 'Full article content here...'
+            },
+            {
+                id: 3,
+                title: '5 Tips for Better Home Cooking',
+                excerpt: 'Our head chef shares professional tips that you can use in your own kitchen to elevate your cooking skills.',
+                image: 'https://images.unsplash.com/photo-1556910103-1c02745aae4d?w=800',
+                date: '2025-11-28',
+                author: 'Chef Sarah Williams',
+                category: 'Cooking Tips',
+                content: 'Full article content here...'
+            },
+            {
+                id: 4,
+                title: 'Wine Pairing Guide',
+                excerpt: 'Discover how to pair wines with different dishes to enhance your dining experience and bring out the best flavors.',
+                image: 'https://images.unsplash.com/photo-1559339352-11d035aa65de?w=800',
+                date: '2025-11-20',
+                author: 'David Chen',
+                category: 'Cooking Tips',
+                content: 'Full article content here...'
+            }
+        ];
+
+        function loadBlogPosts() {
+            const container = document.getElementById('blogPosts');
+            container.innerHTML = blogPosts.map(post => `
+                <article class="blog-post">
+                    <img src="${post.image}" alt="${post.title}" class="blog-post-image">
+                    <div class="blog-post-content">
+                        <div class="blog-meta">
+                            <span>📅 ${formatDate(post.date)}</span>
+                            <span>✍️ ${post.author}</span>
+                            <span>🏷️ ${post.category}</span>
+                        </div>
+                        <h2>${post.title}</h2>
+                        <p class="blog-excerpt">${post.excerpt}</p>
+                        <a href="#" class="btn btn-primary" onclick="viewPost(${post.id})">Read More</a>
+                    </div>
+                </article>
+            `).join('');
+            
+            // Load recent posts
+            const recentContainer = document.getElementById('recentPosts');
+            recentContainer.innerHTML = blogPosts.slice(0, 5).map(post => `
+                <li>
+                    <a href="#" onclick="viewPost(${post.id}); return false;" style="color: var(--text-dark); text-decoration: none;">
+                        ${post.title}
+                    </a>
+                    <div style="font-size: 0.85rem; color: var(--text-light);">${formatDate(post.date)}</div>
+                </li>
+            `).join('');
+        }
+
+        function viewPost(id) {
+            const post = blogPosts.find(p => p.id === id);
+            if (post) {
+                alert(`Viewing: ${post.title}\n\n${post.content}`);
+            }
+        }
+
+        loadBlogPosts();
+    </script>
+</body>
+</html>
+

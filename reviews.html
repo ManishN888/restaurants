@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reviews - Golden Fork Restaurant</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        .reviews-header {
+            text-align: center;
+            background: var(--light-bg);
+            padding: 3rem;
+            border-radius: 10px;
+            margin-bottom: 3rem;
+        }
+        
+        .overall-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .stat-box {
+            text-align: center;
+            padding: 1.5rem;
+            background: var(--white);
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+        }
+        
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+        
+        .review-filters {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-bottom: 2rem;
+        }
+        
+        .review-card {
+            background: var(--white);
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+            margin-bottom: 2rem;
+        }
+        
+        .review-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 1rem;
+        }
+        
+        .reviewer-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .reviewer-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--primary-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-weight: bold;
+        }
+        
+        .review-rating {
+            display: flex;
+            gap: 0.3rem;
+        }
+        
+        .review-categories {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-top: 1rem;
+            font-size: 0.9rem;
+        }
+        
+        .category-rating {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">Golden Fork</a>
+            <ul class="nav-menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="menu.html">Menu</a></li>
+                <li><a href="booking.html">Book Dish</a></li>
+                <li><a href="gallery.html">Gallery</a></li>
+                <li><a href="events.html">Events</a></li>
+                <li><a href="blog.html">Blog</a></li>
+                <li><a href="reviews.html">Reviews</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+            <button class="mobile-menu-toggle">☰</button>
+        </div>
+    </nav>
+
+    <!-- Reviews Section -->
+    <section class="section">
+        <div class="container">
+            <div class="reviews-header">
+                <h1>Customer Reviews</h1>
+                <div class="overall-stats">
+                    <div class="stat-box">
+                        <div class="stat-number">4.7</div>
+                        <div>Overall Rating</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-number">127</div>
+                        <div>Total Reviews</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-number">98%</div>
+                        <div>Would Recommend</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="review-filters">
+                <button class="filter-btn active" onclick="filterReviews('all')">All</button>
+                <button class="filter-btn" onclick="filterReviews('5')">5 Stars</button>
+                <button class="filter-btn" onclick="filterReviews('4')">4 Stars</button>
+                <button class="filter-btn" onclick="filterReviews('3')">3 Stars</button>
+                <button class="filter-btn" onclick="filterReviews('recent')">Most Recent</button>
+            </div>
+            
+            <div id="reviewsList">
+                <!-- Reviews will be loaded here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Golden Fork</h3>
+                <p>Experience the finest culinary delights in a warm and welcoming atmosphere.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <a href="menu.html">Menu</a>
+                <a href="booking.html">Book Dish</a>
+                <a href="about.html">About Us</a>
+            </div>
+            <div class="footer-section">
+                <h3>Contact</h3>
+                <p>123 Restaurant Street</p>
+                <p>City, State 12345</p>
+                <p>Phone: (555) 123-4567</p>
+                <p>Email: info@goldenfork.com</p>
+            </div>
+            <div class="footer-section">
+                <h3>Follow Us</h3>
+                <a href="#">Facebook</a>
+                <a href="#">Instagram</a>
+                <a href="#">Twitter</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Golden Fork Restaurant. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="js/common.js"></script>
+    <script>
+        function loadReviews(filter = 'all') {
+            let reviews = storage.get('restaurantRatings') || [];
+            
+            // Add sample reviews if none exist
+            if (reviews.length === 0) {
+                reviews = [
+                    {
+                        id: 1,
+                        userName: 'Sarah Johnson',
+                        overall: 5,
+                        food: 5,
+                        service: 5,
+                        ambiance: 5,
+                        value: 4,
+                        review: 'Amazing food and excellent service! The grilled salmon was perfectly cooked.',
+                        date: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000).toISOString()
+                    },
+                    {
+                        id: 2,
+                        userName: 'Michael Chen',
+                        overall: 5,
+                        food: 5,
+                        service: 5,
+                        ambiance: 5,
+                        value: 5,
+                        review: 'Best restaurant in town! The ambiance is wonderful and the staff is very friendly.',
+                        date: new Date(Date.now() - 5 * 24 * 60 * 60 * 1000).toISOString()
+                    },
+                    {
+                        id: 3,
+                        userName: 'Emily Davis',
+                        overall: 4,
+                        food: 4,
+                        service: 5,
+                        ambiance: 4,
+                        value: 4,
+                        review: 'Great variety of dishes and reasonable prices. Highly recommended!',
+                        date: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString()
+                    }
+                ];
+            }
+            
+            // Apply filter
+            let filtered = reviews;
+            if (filter === '5') {
+                filtered = reviews.filter(r => r.overall === 5);
+            } else if (filter === '4') {
+                filtered = reviews.filter(r => r.overall === 4);
+            } else if (filter === '3') {
+                filtered = reviews.filter(r => r.overall === 3);
+            } else if (filter === 'recent') {
+                filtered = [...reviews].sort((a, b) => new Date(b.date) - new Date(a.date));
+            }
+            
+            const container = document.getElementById('reviewsList');
+            if (filtered.length === 0) {
+                container.innerHTML = '<p style="text-align: center; color: var(--text-light); padding: 3rem;">No reviews found</p>';
+                return;
+            }
+            
+            container.innerHTML = filtered.map(review => `
+                <div class="review-card">
+                    <div class="review-header">
+                        <div class="reviewer-info">
+                            <div class="reviewer-avatar">${review.userName.charAt(0)}</div>
+                            <div>
+                                <div style="font-weight: bold;">${review.userName}</div>
+                                <div style="font-size: 0.9rem; color: var(--text-light);">${formatDate(review.date)}</div>
+                            </div>
+                        </div>
+                        <div class="review-rating">
+                            ${Array(5).fill(0).map((_, i) => 
+                                `<span class="star ${i < review.overall ? 'filled' : ''}">★</span>`
+                            ).join('')}
+                        </div>
+                    </div>
+                    ${review.review ? `<p style="margin: 1rem 0;">${review.review}</p>` : ''}
+                    <div class="review-categories">
+                        <div class="category-rating">
+                            <span>Food:</span>
+                            <div class="review-rating">
+                                ${Array(5).fill(0).map((_, i) => 
+                                    `<span class="star ${i < review.food ? 'filled' : ''}" style="font-size: 0.8rem;">★</span>`
+                                ).join('')}
+                            </div>
+                        </div>
+                        <div class="category-rating">
+                            <span>Service:</span>
+                            <div class="review-rating">
+                                ${Array(5).fill(0).map((_, i) => 
+                                    `<span class="star ${i < review.service ? 'filled' : ''}" style="font-size: 0.8rem;">★</span>`
+                                ).join('')}
+                            </div>
+                        </div>
+                        <div class="category-rating">
+                            <span>Ambiance:</span>
+                            <div class="review-rating">
+                                ${Array(5).fill(0).map((_, i) => 
+                                    `<span class="star ${i < review.ambiance ? 'filled' : ''}" style="font-size: 0.8rem;">★</span>`
+                                ).join('')}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function filterReviews(filter) {
+            document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            loadReviews(filter);
+        }
+
+        loadReviews();
+    </script>
+</body>
+</html>
+

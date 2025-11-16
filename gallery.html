@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gallery - Golden Fork Restaurant</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        .gallery-filters {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-bottom: 2rem;
+        }
+        
+        .filter-btn {
+            padding: 0.5rem 1.5rem;
+            border: 2px solid var(--primary-color);
+            background: var(--white);
+            color: var(--dark-bg);
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .filter-btn.active,
+        .filter-btn:hover {
+            background: var(--primary-color);
+            color: var(--white);
+        }
+        
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+            cursor: pointer;
+            aspect-ratio: 1;
+        }
+        
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s;
+        }
+        
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+        
+        .gallery-item-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+            color: var(--white);
+            padding: 1rem;
+            transform: translateY(100%);
+            transition: transform 0.3s;
+        }
+        
+        .gallery-item:hover .gallery-item-overlay {
+            transform: translateY(0);
+        }
+        
+        .lightbox {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .lightbox.active {
+            display: flex;
+        }
+        
+        .lightbox-content {
+            max-width: 90%;
+            max-height: 90%;
+            position: relative;
+        }
+        
+        .lightbox-content img {
+            max-width: 100%;
+            max-height: 90vh;
+            object-fit: contain;
+        }
+        
+        .lightbox-close {
+            position: absolute;
+            top: -40px;
+            right: 0;
+            color: var(--white);
+            font-size: 2rem;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">Golden Fork</a>
+            <ul class="nav-menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="menu.html">Menu</a></li>
+                <li><a href="booking.html">Book Dish</a></li>
+                <li><a href="gallery.html">Gallery</a></li>
+                <li><a href="events.html">Events</a></li>
+                <li><a href="blog.html">Blog</a></li>
+                <li><a href="reviews.html">Reviews</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+            <button class="mobile-menu-toggle">☰</button>
+        </div>
+    </nav>
+
+    <!-- Gallery Section -->
+    <section class="section">
+        <div class="container">
+            <h1 class="section-title">Our Gallery</h1>
+            
+            <div class="gallery-filters">
+                <button class="filter-btn active" onclick="filterGallery('all')">All</button>
+                <button class="filter-btn" onclick="filterGallery('food')">Food</button>
+                <button class="filter-btn" onclick="filterGallery('ambiance')">Ambiance</button>
+                <button class="filter-btn" onclick="filterGallery('events')">Events</button>
+                <button class="filter-btn" onclick="filterGallery('staff')">Staff</button>
+            </div>
+            
+            <div class="gallery-grid" id="galleryGrid">
+                <!-- Gallery items will be loaded here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Lightbox -->
+    <div class="lightbox" id="lightbox">
+        <div class="lightbox-content">
+            <span class="lightbox-close" onclick="closeLightbox()">&times;</span>
+            <img id="lightboxImage" src="" alt="">
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Golden Fork</h3>
+                <p>Experience the finest culinary delights in a warm and welcoming atmosphere.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <a href="menu.html">Menu</a>
+                <a href="booking.html">Book Dish</a>
+                <a href="about.html">About Us</a>
+            </div>
+            <div class="footer-section">
+                <h3>Contact</h3>
+                <p>123 Restaurant Street</p>
+                <p>City, State 12345</p>
+                <p>Phone: (555) 123-4567</p>
+                <p>Email: info@goldenfork.com</p>
+            </div>
+            <div class="footer-section">
+                <h3>Follow Us</h3>
+                <a href="#">Facebook</a>
+                <a href="#">Instagram</a>
+                <a href="#">Twitter</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Golden Fork Restaurant. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="js/common.js"></script>
+    <script>
+        const galleryItems = [
+            { image: 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=600', category: 'food', title: 'Grilled Salmon' },
+            { image: 'https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=600', category: 'food', title: 'Margherita Pizza' },
+            { image: 'https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=600', category: 'ambiance', title: 'Restaurant Interior' },
+            { image: 'https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=600', category: 'food', title: 'Chef Preparing Dish' },
+            { image: 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=600', category: 'ambiance', title: 'Dining Area' },
+            { image: 'https://images.unsplash.com/photo-1556911220-bff31c812dba?w=600', category: 'staff', title: 'Our Team' },
+            { image: 'https://images.unsplash.com/photo-1551024506-0bccd828d307?w=600', category: 'food', title: 'Dessert Selection' },
+            { image: 'https://images.unsplash.com/photo-1559339352-11d035aa65de?w=600', category: 'events', title: 'Special Event' },
+            { image: 'https://images.unsplash.com/photo-1551218808-94e220e084d2?w=600', category: 'food', title: 'Appetizers' },
+            { image: 'https://images.unsplash.com/photo-1556910103-1c02745aae4d?w=600', category: 'ambiance', title: 'Bar Area' },
+            { image: 'https://images.unsplash.com/photo-1559339352-11d035aa65de?w=600', category: 'events', title: 'Wine Tasting' },
+            { image: 'https://images.unsplash.com/photo-1577219491135-ce391730fb2c?w=600', category: 'staff', title: 'Chef at Work' }
+        ];
+
+        function loadGallery(category = 'all') {
+            const grid = document.getElementById('galleryGrid');
+            const filtered = category === 'all' ? galleryItems : galleryItems.filter(item => item.category === category);
+            
+            grid.innerHTML = filtered.map(item => `
+                <div class="gallery-item" data-category="${item.category}" onclick="openLightbox('${item.image}')">
+                    <img src="${item.image}" alt="${item.title}">
+                    <div class="gallery-item-overlay">
+                        <h3>${item.title}</h3>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function filterGallery(category) {
+            document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            loadGallery(category);
+        }
+
+        function openLightbox(imageSrc) {
+            document.getElementById('lightboxImage').src = imageSrc;
+            document.getElementById('lightbox').classList.add('active');
+        }
+
+        function closeLightbox() {
+            document.getElementById('lightbox').classList.remove('active');
+        }
+
+        document.getElementById('lightbox').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeLightbox();
+            }
+        });
+
+        loadGallery();
+    </script>
+</body>
+</html>
+

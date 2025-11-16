@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - Golden Fork Restaurant</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        .about-hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+                        url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=1920') center/cover;
+            height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: var(--white);
+        }
+        
+        .about-section {
+            padding: 3rem 0;
+        }
+        
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+            margin-bottom: 3rem;
+        }
+        
+        .about-image {
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .about-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .team-member {
+            text-align: center;
+            background: var(--white);
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+        }
+        
+        .team-member img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 1rem;
+        }
+        
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+        
+        .stat-card {
+            text-align: center;
+            padding: 2rem;
+            background: var(--primary-color);
+            color: var(--dark-bg);
+            border-radius: 10px;
+        }
+        
+        .stat-number {
+            font-size: 3rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+        
+        @media (max-width: 768px) {
+            .about-content {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">Golden Fork</a>
+            <ul class="nav-menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="menu.html">Menu</a></li>
+                <li><a href="booking.html">Book Dish</a></li>
+                <li><a href="gallery.html">Gallery</a></li>
+                <li><a href="events.html">Events</a></li>
+                <li><a href="blog.html">Blog</a></li>
+                <li><a href="reviews.html">Reviews</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+            <button class="mobile-menu-toggle">☰</button>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="about-hero">
+        <div>
+            <h1 style="font-size: 3rem; margin-bottom: 1rem;">About Golden Fork</h1>
+            <p style="font-size: 1.3rem;">Crafting Culinary Excellence Since 2010</p>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="section">
+        <div class="container">
+            <div class="about-section">
+                <div class="about-content">
+                    <div>
+                        <h2 class="section-title" style="text-align: left; margin-bottom: 1rem;">Our Story</h2>
+                        <p style="margin-bottom: 1rem; line-height: 1.8;">
+                            Golden Fork was founded in 2010 with a simple mission: to bring exceptional culinary experiences to our community. What started as a small family restaurant has grown into a beloved dining destination known for our commitment to quality, innovation, and warm hospitality.
+                        </p>
+                        <p style="margin-bottom: 1rem; line-height: 1.8;">
+                            Our chefs combine traditional techniques with modern creativity, using only the finest locally-sourced ingredients. Every dish tells a story, and every meal is crafted with passion and attention to detail.
+                        </p>
+                    </div>
+                    <div class="about-image">
+                        <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=600" alt="Restaurant Interior">
+                    </div>
+                </div>
+
+                <div class="about-content" style="flex-direction: row-reverse;">
+                    <div>
+                        <h2 class="section-title" style="text-align: left; margin-bottom: 1rem;">Our Mission</h2>
+                        <p style="margin-bottom: 1rem; line-height: 1.8;">
+                            To create memorable dining experiences that celebrate the art of cooking and the joy of sharing great food with friends and family. We believe that food brings people together and creates lasting memories.
+                        </p>
+                        <p style="margin-bottom: 1rem; line-height: 1.8;">
+                            We are committed to sustainability, supporting local farmers and producers, and maintaining the highest standards of food quality and service excellence.
+                        </p>
+                    </div>
+                    <div class="about-image">
+                        <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=600" alt="Chef Cooking">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Stats -->
+            <div class="stats">
+                <div class="stat-card">
+                    <div class="stat-number">15+</div>
+                    <div>Years of Excellence</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">50K+</div>
+                    <div>Happy Customers</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">200+</div>
+                    <div>Menu Items</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">4.8</div>
+                    <div>Average Rating</div>
+                </div>
+            </div>
+
+            <!-- Team -->
+            <h2 class="section-title">Meet Our Team</h2>
+            <div class="team-grid">
+                <div class="team-member">
+                    <img src="https://images.unsplash.com/photo-1581299894007-aaa50297cf16?w=300" alt="Chef">
+                    <h3>Chef Michael Johnson</h3>
+                    <p>Head Chef</p>
+                    <p style="color: var(--text-light); font-size: 0.9rem;">15 years of culinary expertise</p>
+                </div>
+                <div class="team-member">
+                    <img src="https://images.unsplash.com/photo-1577219491135-ce391730fb2c?w=300" alt="Chef">
+                    <h3>Chef Sarah Williams</h3>
+                    <p>Sous Chef</p>
+                    <p style="color: var(--text-light); font-size: 0.9rem;">Specialist in Italian cuisine</p>
+                </div>
+                <div class="team-member">
+                    <img src="https://images.unsplash.com/photo-1556911220-bff31c812dba?w=300" alt="Manager">
+                    <h3>David Chen</h3>
+                    <p>Restaurant Manager</p>
+                    <p style="color: var(--text-light); font-size: 0.9rem;">Ensuring exceptional service</p>
+                </div>
+            </div>
+
+            <!-- Operating Hours -->
+            <div style="background: var(--light-bg); padding: 3rem; border-radius: 10px; margin-top: 3rem; text-align: center;">
+                <h2 class="section-title">Operating Hours</h2>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2rem; margin-top: 2rem;">
+                    <div>
+                        <h3>Monday - Thursday</h3>
+                        <p>11:00 AM - 10:00 PM</p>
+                    </div>
+                    <div>
+                        <h3>Friday - Saturday</h3>
+                        <p>11:00 AM - 11:00 PM</p>
+                    </div>
+                    <div>
+                        <h3>Sunday</h3>
+                        <p>12:00 PM - 9:00 PM</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Golden Fork</h3>
+                <p>Experience the finest culinary delights in a warm and welcoming atmosphere.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <a href="menu.html">Menu</a>
+                <a href="booking.html">Book Dish</a>
+                <a href="about.html">About Us</a>
+            </div>
+            <div class="footer-section">
+                <h3>Contact</h3>
+                <p>123 Restaurant Street</p>
+                <p>City, State 12345</p>
+                <p>Phone: (555) 123-4567</p>
+                <p>Email: info@goldenfork.com</p>
+            </div>
+            <div class="footer-section">
+                <h3>Follow Us</h3>
+                <a href="#">Facebook</a>
+                <a href="#">Instagram</a>
+                <a href="#">Twitter</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Golden Fork Restaurant. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="js/common.js"></script>
+</body>
+</html>
+

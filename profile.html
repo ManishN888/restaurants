@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Profile - Golden Fork Restaurant</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        .profile-container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        .profile-header {
+            background: var(--light-bg);
+            padding: 3rem;
+            border-radius: 10px;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        
+        .profile-avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: var(--primary-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: var(--white);
+            margin: 0 auto 1rem;
+        }
+        
+        .profile-tabs {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            border-bottom: 2px solid #ddd;
+        }
+        
+        .tab {
+            padding: 1rem 2rem;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            color: var(--text-light);
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s;
+        }
+        
+        .tab.active {
+            color: var(--primary-color);
+            border-bottom-color: var(--primary-color);
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        .booking-item,
+        .order-item {
+            background: var(--white);
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+            margin-bottom: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .status-badge {
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+        
+        .status-confirmed {
+            background: var(--success);
+            color: var(--white);
+        }
+        
+        .status-preparing {
+            background: var(--warning);
+            color: var(--dark-bg);
+        }
+        
+        .status-completed {
+            background: var(--primary-color);
+            color: var(--dark-bg);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">Golden Fork</a>
+            <ul class="nav-menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="menu.html">Menu</a></li>
+                <li><a href="booking.html">Book Dish</a></li>
+                <li><a href="gallery.html">Gallery</a></li>
+                <li><a href="events.html">Events</a></li>
+                <li><a href="blog.html">Blog</a></li>
+                <li><a href="reviews.html">Reviews</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+            <button class="mobile-menu-toggle">☰</button>
+        </div>
+    </nav>
+
+    <!-- Profile Section -->
+    <section class="section">
+        <div class="container profile-container">
+            <div class="profile-header">
+                <div class="profile-avatar" id="userAvatar">U</div>
+                <h1 id="userName">User Name</h1>
+                <p id="userEmail">user@example.com</p>
+            </div>
+            
+            <div class="profile-tabs">
+                <button class="tab active" onclick="showTab('bookings')">My Bookings</button>
+                <button class="tab" onclick="showTab('orders')">My Orders</button>
+                <button class="tab" onclick="showTab('settings')">Settings</button>
+            </div>
+            
+            <!-- Bookings Tab -->
+            <div id="bookingsTab" class="tab-content active">
+                <h2>My Bookings</h2>
+                <div id="bookingsList">
+                    <!-- Bookings will be loaded here -->
+                </div>
+            </div>
+            
+            <!-- Orders Tab -->
+            <div id="ordersTab" class="tab-content">
+                <h2>My Orders</h2>
+                <div id="ordersList">
+                    <!-- Orders will be loaded here -->
+                </div>
+            </div>
+            
+            <!-- Settings Tab -->
+            <div id="settingsTab" class="tab-content">
+                <h2>Account Settings</h2>
+                <div style="background: var(--white); padding: 2rem; border-radius: 10px; box-shadow: var(--shadow);">
+                    <form id="profileForm">
+                        <div class="form-group">
+                            <label class="form-label">Full Name</label>
+                            <input type="text" class="form-control" id="profileName" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Email</label>
+                            <input type="email" class="form-control" id="profileEmail" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Phone</label>
+                            <input type="tel" class="form-control" id="profilePhone" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Save Changes</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Golden Fork</h3>
+                <p>Experience the finest culinary delights in a warm and welcoming atmosphere.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <a href="menu.html">Menu</a>
+                <a href="booking.html">Book Dish</a>
+                <a href="about.html">About Us</a>
+            </div>
+            <div class="footer-section">
+                <h3>Contact</h3>
+                <p>123 Restaurant Street</p>
+                <p>City, State 12345</p>
+                <p>Phone: (555) 123-4567</p>
+                <p>Email: info@goldenfork.com</p>
+            </div>
+            <div class="footer-section">
+                <h3>Follow Us</h3>
+                <a href="#">Facebook</a>
+                <a href="#">Instagram</a>
+                <a href="#">Twitter</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Golden Fork Restaurant. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="js/common.js"></script>
+    <script>
+        function showTab(tabName) {
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+            
+            event.target.classList.add('active');
+            document.getElementById(`${tabName}Tab`).classList.add('active');
+            
+            if (tabName === 'bookings') loadBookings();
+            if (tabName === 'orders') loadOrders();
+        }
+
+        function loadUserProfile() {
+            const user = getCurrentUser();
+            if (!user) {
+                window.location.href = 'index.html';
+                return;
+            }
+            
+            document.getElementById('userAvatar').textContent = user.name.charAt(0).toUpperCase();
+            document.getElementById('userName').textContent = user.name;
+            document.getElementById('userEmail').textContent = user.email;
+            document.getElementById('profileName').value = user.name;
+            document.getElementById('profileEmail').value = user.email;
+            document.getElementById('profilePhone').value = user.phone || '';
+        }
+
+        function loadBookings() {
+            const bookings = storage.get('bookings') || [];
+            const currentUser = getCurrentUser();
+            const userBookings = bookings.filter(b => b.userId === currentUser?.id || true); // Simplified
+            
+            const container = document.getElementById('bookingsList');
+            if (userBookings.length === 0) {
+                container.innerHTML = '<p style="text-align: center; color: var(--text-light); padding: 3rem;">No bookings yet</p>';
+                return;
+            }
+            
+            container.innerHTML = userBookings.map(booking => `
+                <div class="booking-item">
+                    <div>
+                        <h3>${booking.dish}</h3>
+                        <p style="color: var(--text-light);">${booking.type} • ${formatDate(booking.date)} at ${booking.time}</p>
+                        <p>Quantity: ${booking.quantity}</p>
+                    </div>
+                    <div>
+                        <span class="status-badge status-confirmed">${booking.status}</span>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function loadOrders() {
+            const orders = storage.get('orders') || [];
+            const container = document.getElementById('ordersList');
+            
+            if (orders.length === 0) {
+                container.innerHTML = '<p style="text-align: center; color: var(--text-light); padding: 3rem;">No orders yet</p>';
+                return;
+            }
+            
+            container.innerHTML = orders.map(order => {
+                const total = order.items.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+                return `
+                    <div class="order-item">
+                        <div>
+                            <h3>Order #${order.id}</h3>
+                            <p style="color: var(--text-light);">${formatDate(order.createdAt)}</p>
+                            <p>${order.items.length} item(s) • Total: $${total.toFixed(2)}</p>
+                        </div>
+                        <div>
+                            <span class="status-badge status-${order.status}">${order.status}</span>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        document.getElementById('profileForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const user = getCurrentUser();
+            if (!user) return;
+            
+            const users = storage.get('users') || [];
+            const userIndex = users.findIndex(u => u.email === user.email);
+            
+            if (userIndex !== -1) {
+                users[userIndex].name = document.getElementById('profileName').value;
+                users[userIndex].email = document.getElementById('profileEmail').value;
+                users[userIndex].phone = document.getElementById('profilePhone').value;
+                storage.set('users', users);
+                
+                const { password: _, ...userWithoutPassword } = users[userIndex];
+                storage.set('currentUser', userWithoutPassword);
+                
+                showAlert('Profile updated successfully!', 'success');
+                loadUserProfile();
+            }
+        });
+
+        loadUserProfile();
+        loadBookings();
+    </script>
+</body>
+</html>
+

@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loyalty Program - Golden Fork Restaurant</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        .loyalty-hero {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: var(--white);
+            padding: 4rem 2rem;
+            text-align: center;
+            border-radius: 10px;
+            margin-bottom: 3rem;
+        }
+        
+        .points-display {
+            background: var(--white);
+            padding: 3rem;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        .points-number {
+            font-size: 4rem;
+            font-weight: bold;
+            color: var(--primary-color);
+            margin: 1rem 0;
+        }
+        
+        .tiers {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+        
+        .tier-card {
+            background: var(--white);
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+            text-align: center;
+            border: 3px solid transparent;
+            transition: all 0.3s;
+        }
+        
+        .tier-card.active {
+            border-color: var(--primary-color);
+            transform: scale(1.05);
+        }
+        
+        .tier-name {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+        
+        .tier-points {
+            font-size: 2rem;
+            font-weight: bold;
+            margin: 1rem 0;
+        }
+        
+        .rewards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+        }
+        
+        .reward-card {
+            background: var(--white);
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+            text-align: center;
+        }
+        
+        .reward-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        
+        .history-item {
+            background: var(--white);
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+            margin-bottom: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">Golden Fork</a>
+            <ul class="nav-menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="menu.html">Menu</a></li>
+                <li><a href="booking.html">Book Dish</a></li>
+                <li><a href="gallery.html">Gallery</a></li>
+                <li><a href="events.html">Events</a></li>
+                <li><a href="blog.html">Blog</a></li>
+                <li><a href="reviews.html">Reviews</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+            <button class="mobile-menu-toggle">☰</button>
+        </div>
+    </nav>
+
+    <!-- Loyalty Program Section -->
+    <section class="section">
+        <div class="container">
+            <div class="loyalty-hero">
+                <h1 style="font-size: 3rem; margin-bottom: 1rem;">Golden Fork Loyalty Program</h1>
+                <p style="font-size: 1.3rem;">Earn points with every visit and redeem amazing rewards!</p>
+            </div>
+            
+            <!-- Points Display -->
+            <div class="points-display">
+                <h2>Your Points</h2>
+                <div class="points-number" id="userPoints">0</div>
+                <p style="color: var(--text-light);">Keep dining to earn more points!</p>
+            </div>
+            
+            <!-- Tiers -->
+            <h2 class="section-title">Membership Tiers</h2>
+            <div class="tiers">
+                <div class="tier-card" id="bronzeTier">
+                    <div class="tier-name">🥉 Bronze</div>
+                    <div class="tier-points">0-499 pts</div>
+                    <p>5% discount on all orders</p>
+                </div>
+                <div class="tier-card" id="silverTier">
+                    <div class="tier-name">🥈 Silver</div>
+                    <div class="tier-points">500-999 pts</div>
+                    <p>10% discount + Free dessert</p>
+                </div>
+                <div class="tier-card" id="goldTier">
+                    <div class="tier-name">🥇 Gold</div>
+                    <div class="tier-points">1000+ pts</div>
+                    <p>15% discount + Priority booking</p>
+                </div>
+            </div>
+            
+            <!-- Rewards -->
+            <h2 class="section-title">Available Rewards</h2>
+            <div class="rewards-grid">
+                <div class="reward-card">
+                    <div class="reward-icon">🍰</div>
+                    <h3>Free Dessert</h3>
+                    <p>Redeem for 100 points</p>
+                    <button class="btn btn-primary" onclick="redeemReward('dessert', 100)">Redeem</button>
+                </div>
+                <div class="reward-card">
+                    <div class="reward-icon">🍷</div>
+                    <h3>Free Drink</h3>
+                    <p>Redeem for 75 points</p>
+                    <button class="btn btn-primary" onclick="redeemReward('drink', 75)">Redeem</button>
+                </div>
+                <div class="reward-card">
+                    <div class="reward-icon">🎁</div>
+                    <h3>$10 Off</h3>
+                    <p>Redeem for 200 points</p>
+                    <button class="btn btn-primary" onclick="redeemReward('discount', 200)">Redeem</button>
+                </div>
+                <div class="reward-card">
+                    <div class="reward-icon">🎂</div>
+                    <h3>Free Appetizer</h3>
+                    <p>Redeem for 150 points</p>
+                    <button class="btn btn-primary" onclick="redeemReward('appetizer', 150)">Redeem</button>
+                </div>
+            </div>
+            
+            <!-- Points History -->
+            <h2 class="section-title" style="margin-top: 3rem;">Points History</h2>
+            <div id="pointsHistory">
+                <!-- History will be loaded here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Golden Fork</h3>
+                <p>Experience the finest culinary delights in a warm and welcoming atmosphere.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <a href="menu.html">Menu</a>
+                <a href="booking.html">Book Dish</a>
+                <a href="about.html">About Us</a>
+            </div>
+            <div class="footer-section">
+                <h3>Contact</h3>
+                <p>123 Restaurant Street</p>
+                <p>City, State 12345</p>
+                <p>Phone: (555) 123-4567</p>
+                <p>Email: info@goldenfork.com</p>
+            </div>
+            <div class="footer-section">
+                <h3>Follow Us</h3>
+                <a href="#">Facebook</a>
+                <a href="#">Instagram</a>
+                <a href="#">Twitter</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Golden Fork Restaurant. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="js/common.js"></script>
+    <script>
+        function loadLoyaltyData() {
+            // Loyalty program - simplified for guest users
+            // In production, this would use email/phone to track points
+            const guestEmail = prompt('Enter your email to view loyalty points (or cancel to skip):');
+            if (!guestEmail) {
+                document.getElementById('userPoints').textContent = '0';
+                return;
+            }
+            
+            const user = { email: guestEmail };
+            let loyaltyData = storage.get('loyaltyData') || {};
+            let userPoints = loyaltyData[user.email]?.points || 0;
+            let history = loyaltyData[user.email]?.history || [];
+            
+            // Calculate points from orders
+            const orders = storage.get('orders') || [];
+            orders.forEach(order => {
+                const orderTotal = order.items.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+                const pointsEarned = Math.floor(orderTotal);
+                if (!history.find(h => h.orderId === order.id)) {
+                    userPoints += pointsEarned;
+                    history.push({
+                        type: 'earned',
+                        points: pointsEarned,
+                        description: `Earned from order #${order.id}`,
+                        date: order.createdAt,
+                        orderId: order.id
+                    });
+                }
+            });
+            
+            if (!loyaltyData[user.email]) {
+                loyaltyData[user.email] = { points: userPoints, history: history };
+            } else {
+                loyaltyData[user.email].points = userPoints;
+                loyaltyData[user.email].history = history;
+            }
+            storage.set('loyaltyData', loyaltyData);
+            
+            document.getElementById('userPoints').textContent = userPoints;
+            
+            // Update tier display
+            document.querySelectorAll('.tier-card').forEach(card => card.classList.remove('active'));
+            if (userPoints >= 1000) {
+                document.getElementById('goldTier').classList.add('active');
+            } else if (userPoints >= 500) {
+                document.getElementById('silverTier').classList.add('active');
+            } else {
+                document.getElementById('bronzeTier').classList.add('active');
+            }
+            
+            // Load history
+            const historyContainer = document.getElementById('pointsHistory');
+            if (history.length === 0) {
+                historyContainer.innerHTML = '<p style="text-align: center; color: var(--text-light); padding: 3rem;">No points history yet</p>';
+            } else {
+                historyContainer.innerHTML = history.slice().reverse().map(item => `
+                    <div class="history-item">
+                        <div>
+                            <strong>${item.description}</strong>
+                            <p style="color: var(--text-light); font-size: 0.9rem; margin-top: 0.5rem;">${formatDate(item.date)}</p>
+                        </div>
+                        <div style="font-size: 1.5rem; font-weight: bold; color: ${item.type === 'earned' ? 'var(--success)' : 'var(--danger)'};">
+                            ${item.type === 'earned' ? '+' : '-'}${item.points}
+                        </div>
+                    </div>
+                `).join('');
+            }
+        }
+
+        function redeemReward(rewardType, points) {
+            const guestEmail = prompt('Enter your email to redeem reward:');
+            if (!guestEmail) {
+                showAlert('Email required to redeem rewards', 'error');
+                return;
+            }
+            
+            const user = { email: guestEmail };
+            let loyaltyData = storage.get('loyaltyData') || {};
+            let userPoints = loyaltyData[user.email]?.points || 0;
+            
+            if (userPoints < points) {
+                showAlert('Insufficient points!', 'error');
+                return;
+            }
+            
+            userPoints -= points;
+            if (!loyaltyData[user.email]) {
+                loyaltyData[user.email] = { points: userPoints, history: [] };
+            }
+            loyaltyData[user.email].points = userPoints;
+            loyaltyData[user.email].history.push({
+                type: 'redeemed',
+                points: points,
+                description: `Redeemed ${rewardType}`,
+                date: new Date().toISOString()
+            });
+            storage.set('loyaltyData', loyaltyData);
+            
+            showAlert(`Reward redeemed successfully! ${points} points deducted.`, 'success');
+            loadLoyaltyData();
+        }
+
+        loadLoyaltyData();
+    </script>
+</body>
+</html>
+

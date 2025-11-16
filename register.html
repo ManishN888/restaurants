@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - Golden Fork Restaurant</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        .auth-container {
+            max-width: 500px;
+            margin: 4rem auto;
+            padding: 2rem;
+        }
+        
+        .auth-card {
+            background: var(--white);
+            padding: 3rem;
+            border-radius: 10px;
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .auth-card h1 {
+            text-align: center;
+            margin-bottom: 2rem;
+            color: var(--dark-bg);
+        }
+        
+        .password-strength {
+            margin-top: 0.5rem;
+            font-size: 0.85rem;
+        }
+        
+        .strength-bar {
+            height: 4px;
+            background: #ddd;
+            border-radius: 2px;
+            margin-top: 0.5rem;
+            overflow: hidden;
+        }
+        
+        .strength-fill {
+            height: 100%;
+            width: 0%;
+            transition: all 0.3s;
+        }
+        
+        .strength-weak { background: var(--danger); width: 33%; }
+        .strength-medium { background: var(--warning); width: 66%; }
+        .strength-strong { background: var(--success); width: 100%; }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">Golden Fork</a>
+            <ul class="nav-menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="menu.html">Menu</a></li>
+                <li><a href="booking.html">Book Dish</a></li>
+                <li><a href="gallery.html">Gallery</a></li>
+                <li><a href="events.html">Events</a></li>
+                <li><a href="blog.html">Blog</a></li>
+                <li><a href="reviews.html">Reviews</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+            <div class="user-actions">
+                <a href="login.html" class="btn btn-secondary">Login</a>
+                <a href="register.html" class="btn btn-primary">Sign Up</a>
+            </div>
+            <button class="mobile-menu-toggle">☰</button>
+        </div>
+    </nav>
+
+    <!-- Register Section -->
+    <section class="section">
+        <div class="auth-container">
+            <div class="auth-card">
+                <h1>Create Account</h1>
+                
+                <form id="registerForm">
+                    <div class="form-group">
+                        <label class="form-label">Full Name</label>
+                        <input type="text" class="form-control" id="name" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Email</label>
+                        <input type="email" class="form-control" id="email" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Phone</label>
+                        <input type="tel" class="form-control" id="phone" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Password</label>
+                        <input type="password" class="form-control" id="password" required minlength="6">
+                        <div class="password-strength">
+                            <div class="strength-bar">
+                                <div class="strength-fill" id="strengthFill"></div>
+                            </div>
+                            <span id="strengthText">Password strength</span>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Confirm Password</label>
+                        <input type="password" class="form-control" id="confirmPassword" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label style="display: flex; align-items: center; gap: 0.5rem;">
+                            <input type="checkbox" required>
+                            <span>I agree to the <a href="#" style="color: var(--primary-color);">Terms and Conditions</a></span>
+                        </label>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary" style="width: 100%;">Create Account</button>
+                </form>
+                
+                <div style="text-align: center; margin-top: 2rem; padding-top: 2rem; border-top: 1px solid #ddd;">
+                    <p>Already have an account? <a href="login.html" style="color: var(--primary-color);">Login</a></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Golden Fork</h3>
+                <p>Experience the finest culinary delights in a warm and welcoming atmosphere.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <a href="menu.html">Menu</a>
+                <a href="booking.html">Book Dish</a>
+                <a href="about.html">About Us</a>
+            </div>
+            <div class="footer-section">
+                <h3>Contact</h3>
+                <p>123 Restaurant Street</p>
+                <p>City, State 12345</p>
+                <p>Phone: (555) 123-4567</p>
+                <p>Email: info@goldenfork.com</p>
+            </div>
+            <div class="footer-section">
+                <h3>Follow Us</h3>
+                <a href="#">Facebook</a>
+                <a href="#">Instagram</a>
+                <a href="#">Twitter</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Golden Fork Restaurant. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="js/common.js"></script>
+    <script>
+        // Password strength checker
+        document.getElementById('password').addEventListener('input', function() {
+            const password = this.value;
+            const strengthFill = document.getElementById('strengthFill');
+            const strengthText = document.getElementById('strengthText');
+            
+            let strength = 0;
+            if (password.length >= 6) strength++;
+            if (password.length >= 8) strength++;
+            if (/[a-z]/.test(password) && /[A-Z]/.test(password)) strength++;
+            if (/\d/.test(password)) strength++;
+            if (/[^a-zA-Z\d]/.test(password)) strength++;
+            
+            strengthFill.className = 'strength-fill';
+            if (strength <= 2) {
+                strengthFill.classList.add('strength-weak');
+                strengthText.textContent = 'Weak password';
+            } else if (strength <= 3) {
+                strengthFill.classList.add('strength-medium');
+                strengthText.textContent = 'Medium password';
+            } else {
+                strengthFill.classList.add('strength-strong');
+                strengthText.textContent = 'Strong password';
+            }
+        });
+
+        document.getElementById('registerForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const phone = document.getElementById('phone').value;
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            
+            if (password !== confirmPassword) {
+                showAlert('Passwords do not match', 'error');
+                return;
+            }
+            
+            if (password.length < 6) {
+                showAlert('Password must be at least 6 characters', 'error');
+                return;
+            }
+            
+            // Get existing users
+            let users = storage.get('users') || [];
+            
+            // Check if email already exists
+            if (users.find(u => u.email === email)) {
+                showAlert('Email already registered', 'error');
+                return;
+            }
+            
+            // Create new user
+            const user = {
+                id: Date.now(),
+                name: name,
+                email: email,
+                phone: phone,
+                password: password,
+                createdAt: new Date().toISOString()
+            };
+            
+            users.push(user);
+            storage.set('users', users);
+            
+            // Auto login
+            const { password: _, ...userWithoutPassword } = user;
+            storage.set('currentUser', userWithoutPassword);
+            
+            showAlert('Account created successfully!', 'success');
+            setTimeout(() => {
+                window.location.href = 'index.html';
+            }, 1000);
+        });
+    </script>
+</body>
+</html>
+

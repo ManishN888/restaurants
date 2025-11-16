@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rate Dish - Golden Fork Restaurant</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        .rating-container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .dish-info {
+            text-align: center;
+            padding: 2rem;
+            background: var(--light-bg);
+            border-radius: 10px;
+            margin-bottom: 2rem;
+        }
+        
+        .dish-info h2 {
+            color: var(--dark-bg);
+            margin-bottom: 1rem;
+        }
+        
+        .rating-form {
+            background: var(--white);
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+        }
+        
+        .rating-input-large {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            margin: 2rem 0;
+        }
+        
+        .rating-input-large .star {
+            font-size: 3rem;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">Golden Fork</a>
+            <ul class="nav-menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="menu.html">Menu</a></li>
+                <li><a href="booking.html">Book Dish</a></li>
+                <li><a href="gallery.html">Gallery</a></li>
+                <li><a href="events.html">Events</a></li>
+                <li><a href="blog.html">Blog</a></li>
+                <li><a href="reviews.html">Reviews</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+            <button class="mobile-menu-toggle">☰</button>
+        </div>
+    </nav>
+
+    <!-- Dish Rating Section -->
+    <section class="section">
+        <div class="container">
+            <div class="rating-container">
+                <div class="dish-info">
+                    <h2 id="dishName">Dish Name</h2>
+                    <p>Share your experience with this dish</p>
+                </div>
+
+                <div class="rating-form">
+                    <form id="dishRatingForm">
+                        <div style="background: var(--light-bg); padding: 1.5rem; border-radius: 10px; margin-bottom: 2rem;">
+                            <h3 style="margin-bottom: 1rem;">Your Information</h3>
+                            <div class="form-group">
+                                <label class="form-label">Full Name *</label>
+                                <input type="text" class="form-control" id="dishRaterName" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Email *</label>
+                                <input type="email" class="form-control" id="dishRaterEmail" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Phone *</label>
+                                <input type="tel" class="form-control" id="dishRaterPhone" required>
+                            </div>
+                        </div>
+                        <div style="text-align: center;">
+                            <h3>Rate this dish</h3>
+                            <div class="rating-input-large">
+                                <span class="star" data-rating="1">★</span>
+                                <span class="star" data-rating="2">★</span>
+                                <span class="star" data-rating="3">★</span>
+                                <span class="star" data-rating="4">★</span>
+                                <span class="star" data-rating="5">★</span>
+                            </div>
+                            <input type="hidden" id="dishRatingInput" value="0">
+                            <p id="ratingText" style="color: var(--text-light); margin-top: 1rem;">Click to rate</p>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Your Review (Optional)</label>
+                            <textarea class="form-control" id="dishReviewText" placeholder="Tell us what you think about this dish..."></textarea>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary" style="width: 100%;">Submit Rating</button>
+                    </form>
+                </div>
+
+                <!-- Recent Ratings for this dish -->
+                <div style="margin-top: 3rem;">
+                    <h3 class="section-title">Recent Reviews</h3>
+                    <div id="dishRatings">
+                        <!-- Ratings will be loaded here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Golden Fork</h3>
+                <p>Experience the finest culinary delights in a warm and welcoming atmosphere.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <a href="menu.html">Menu</a>
+                <a href="booking.html">Book Dish</a>
+                <a href="about.html">About Us</a>
+            </div>
+            <div class="footer-section">
+                <h3>Contact</h3>
+                <p>123 Restaurant Street</p>
+                <p>City, State 12345</p>
+                <p>Phone: (555) 123-4567</p>
+                <p>Email: info@goldenfork.com</p>
+            </div>
+            <div class="footer-section">
+                <h3>Follow Us</h3>
+                <a href="#">Facebook</a>
+                <a href="#">Instagram</a>
+                <a href="#">Twitter</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Golden Fork Restaurant. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="js/common.js"></script>
+    <script>
+        // Get dish name from URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const dishName = urlParams.get('dish') || 'Unknown Dish';
+        document.getElementById('dishName').textContent = dishName;
+
+        // Rating stars
+        const stars = document.querySelectorAll('.rating-input-large .star');
+        const ratingInput = document.getElementById('dishRatingInput');
+        const ratingText = document.getElementById('ratingText');
+        
+        const ratingLabels = ['', 'Poor', 'Fair', 'Good', 'Very Good', 'Excellent'];
+
+        stars.forEach((star, index) => {
+            star.addEventListener('click', function() {
+                const rating = index + 1;
+                ratingInput.value = rating;
+                ratingText.textContent = ratingLabels[rating];
+                
+                stars.forEach((s, i) => {
+                    if (i <= index) {
+                        s.classList.add('filled');
+                    } else {
+                        s.classList.remove('filled');
+                    }
+                });
+            });
+        });
+
+        // Load dish ratings
+        function loadDishRatings() {
+            const ratings = storage.get('dishRatings') || [];
+            const dishRatings = ratings.filter(r => r.dishName === dishName);
+            const container = document.getElementById('dishRatings');
+            
+            if (dishRatings.length === 0) {
+                container.innerHTML = '<p style="text-align: center; color: var(--text-light);">No ratings yet for this dish. Be the first to rate!</p>';
+                return;
+            }
+            
+            container.innerHTML = dishRatings.slice(-5).reverse().map(rating => `
+                <div class="rating-item" style="background: var(--white); padding: 1.5rem; border-radius: 10px; box-shadow: var(--shadow); margin-bottom: 1rem;">
+                    <div class="rating-item-header">
+                        <span class="rating-item-user">${rating.userName}</span>
+                        <span class="rating-item-date">${formatDate(rating.date)}</span>
+                    </div>
+                    <div class="rating-display">
+                        <span class="rating-value">${rating.rating}/5</span>
+                        <div class="rating">
+                            ${Array(5).fill(0).map((_, i) => 
+                                `<span class="star ${i < rating.rating ? 'filled' : ''}">★</span>`
+                            ).join('')}
+                        </div>
+                    </div>
+                    ${rating.review ? `<p style="margin-top: 1rem;">${rating.review}</p>` : ''}
+                </div>
+            `).join('');
+        }
+
+        // Submit rating
+        document.getElementById('dishRatingForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const name = document.getElementById('dishRaterName').value;
+            const email = document.getElementById('dishRaterEmail').value;
+            const phone = document.getElementById('dishRaterPhone').value;
+            const rating = parseInt(ratingInput.value);
+            const review = document.getElementById('dishReviewText').value;
+
+            if (!name || !email || !phone) {
+                showAlert('Please fill in all required information', 'error');
+                return;
+            }
+
+            if (rating === 0) {
+                showAlert('Please provide a rating', 'error');
+                return;
+            }
+
+            const dishRating = {
+                id: Date.now(),
+                dishName: dishName,
+                userName: name,
+                email: email,
+                phone: phone,
+                rating: rating,
+                review: review,
+                date: new Date().toISOString()
+            };
+
+            let ratings = storage.get('dishRatings') || [];
+            ratings.push(dishRating);
+            storage.set('dishRatings', ratings);
+
+            showAlert('Thank you for your rating!', 'success');
+            this.reset();
+            stars.forEach(s => s.classList.remove('filled'));
+            ratingText.textContent = 'Click to rate';
+            loadDishRatings();
+        });
+
+        // Load ratings on page load
+        loadDishRatings();
+    </script>
+</body>
+</html>
+

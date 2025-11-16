@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rate Restaurant - Golden Fork Restaurant</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        .rating-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .rating-card {
+            background: var(--white);
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+            margin-bottom: 2rem;
+        }
+        
+        .rating-category {
+            margin-bottom: 2rem;
+        }
+        
+        .rating-category h3 {
+            margin-bottom: 1rem;
+            color: var(--dark-bg);
+        }
+        
+        .rating-input {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .overall-rating {
+            text-align: center;
+            padding: 2rem;
+            background: var(--light-bg);
+            border-radius: 10px;
+            margin-bottom: 2rem;
+        }
+        
+        .overall-rating .rating-value {
+            font-size: 3rem;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+        
+        .recent-ratings {
+            margin-top: 3rem;
+        }
+        
+        .rating-item {
+            background: var(--white);
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+            margin-bottom: 1rem;
+        }
+        
+        .rating-item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        
+        .rating-item-user {
+            font-weight: bold;
+            color: var(--dark-bg);
+        }
+        
+        .rating-item-date {
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">Golden Fork</a>
+            <ul class="nav-menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="menu.html">Menu</a></li>
+                <li><a href="booking.html">Book Dish</a></li>
+                <li><a href="gallery.html">Gallery</a></li>
+                <li><a href="events.html">Events</a></li>
+                <li><a href="blog.html">Blog</a></li>
+                <li><a href="reviews.html">Reviews</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+            <button class="mobile-menu-toggle">☰</button>
+        </div>
+    </nav>
+
+    <!-- Rating Section -->
+    <section class="section">
+        <div class="container">
+            <h1 class="section-title">Rate Our Restaurant</h1>
+            
+            <div class="rating-container">
+                <!-- Overall Rating Display -->
+                <div class="overall-rating">
+                    <h2>Overall Rating</h2>
+                    <div class="rating-value" id="overallRating">4.7</div>
+                    <div class="rating" style="justify-content: center; margin-top: 1rem;">
+                        <span class="star filled">★</span>
+                        <span class="star filled">★</span>
+                        <span class="star filled">★</span>
+                        <span class="star filled">★</span>
+                        <span class="star">★</span>
+                    </div>
+                    <p style="margin-top: 1rem; color: var(--text-light);">Based on 127 reviews</p>
+                </div>
+
+                <!-- Rating Form -->
+                <div class="rating-card">
+                    <h2>Share Your Experience</h2>
+                    <form id="ratingForm">
+                        <div style="background: var(--light-bg); padding: 1.5rem; border-radius: 10px; margin-bottom: 2rem;">
+                            <h3 style="margin-bottom: 1rem;">Your Information</h3>
+                            <div class="form-group">
+                                <label class="form-label">Full Name *</label>
+                                <input type="text" class="form-control" id="raterName" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Email *</label>
+                                <input type="email" class="form-control" id="raterEmail" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Phone *</label>
+                                <input type="tel" class="form-control" id="raterPhone" required>
+                            </div>
+                        </div>
+                        <div class="rating-category">
+                            <h3>Overall Experience</h3>
+                            <div class="rating-input">
+                                <span class="star" data-rating="1">★</span>
+                                <span class="star" data-rating="2">★</span>
+                                <span class="star" data-rating="3">★</span>
+                                <span class="star" data-rating="4">★</span>
+                                <span class="star" data-rating="5">★</span>
+                            </div>
+                            <input type="hidden" id="overallRatingInput" value="0">
+                        </div>
+
+                        <div class="rating-category">
+                            <h3>Food Quality</h3>
+                            <div class="rating-input">
+                                <span class="star" data-rating="1">★</span>
+                                <span class="star" data-rating="2">★</span>
+                                <span class="star" data-rating="3">★</span>
+                                <span class="star" data-rating="4">★</span>
+                                <span class="star" data-rating="5">★</span>
+                            </div>
+                            <input type="hidden" id="foodRatingInput" value="0">
+                        </div>
+
+                        <div class="rating-category">
+                            <h3>Service</h3>
+                            <div class="rating-input">
+                                <span class="star" data-rating="1">★</span>
+                                <span class="star" data-rating="2">★</span>
+                                <span class="star" data-rating="3">★</span>
+                                <span class="star" data-rating="4">★</span>
+                                <span class="star" data-rating="5">★</span>
+                            </div>
+                            <input type="hidden" id="serviceRatingInput" value="0">
+                        </div>
+
+                        <div class="rating-category">
+                            <h3>Ambiance</h3>
+                            <div class="rating-input">
+                                <span class="star" data-rating="1">★</span>
+                                <span class="star" data-rating="2">★</span>
+                                <span class="star" data-rating="3">★</span>
+                                <span class="star" data-rating="4">★</span>
+                                <span class="star" data-rating="5">★</span>
+                            </div>
+                            <input type="hidden" id="ambianceRatingInput" value="0">
+                        </div>
+
+                        <div class="rating-category">
+                            <h3>Value for Money</h3>
+                            <div class="rating-input">
+                                <span class="star" data-rating="1">★</span>
+                                <span class="star" data-rating="2">★</span>
+                                <span class="star" data-rating="3">★</span>
+                                <span class="star" data-rating="4">★</span>
+                                <span class="star" data-rating="5">★</span>
+                            </div>
+                            <input type="hidden" id="valueRatingInput" value="0">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Your Review (Optional)</label>
+                            <textarea class="form-control" id="reviewText" placeholder="Share your experience with us..."></textarea>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary" style="width: 100%;">Submit Rating</button>
+                    </form>
+                </div>
+
+                <!-- Recent Ratings -->
+                <div class="recent-ratings">
+                    <h2 class="section-title">Recent Ratings</h2>
+                    <div id="recentRatings">
+                        <!-- Ratings will be loaded here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Golden Fork</h3>
+                <p>Experience the finest culinary delights in a warm and welcoming atmosphere.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <a href="menu.html">Menu</a>
+                <a href="booking.html">Book Dish</a>
+                <a href="about.html">About Us</a>
+            </div>
+            <div class="footer-section">
+                <h3>Contact</h3>
+                <p>123 Restaurant Street</p>
+                <p>City, State 12345</p>
+                <p>Phone: (555) 123-4567</p>
+                <p>Email: info@goldenfork.com</p>
+            </div>
+            <div class="footer-section">
+                <h3>Follow Us</h3>
+                <a href="#">Facebook</a>
+                <a href="#">Instagram</a>
+                <a href="#">Twitter</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Golden Fork Restaurant. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="js/common.js"></script>
+    <script>
+        // Initialize rating inputs
+        document.querySelectorAll('.rating-input').forEach(container => {
+            const stars = container.querySelectorAll('.star');
+            const input = container.nextElementSibling;
+            
+            stars.forEach((star, index) => {
+                star.addEventListener('click', function() {
+                    const rating = index + 1;
+                    input.value = rating;
+                    
+                    stars.forEach((s, i) => {
+                        if (i <= index) {
+                            s.classList.add('filled');
+                        } else {
+                            s.classList.remove('filled');
+                        }
+                    });
+                });
+            });
+        });
+
+        // Load recent ratings
+        function loadRecentRatings() {
+            const ratings = storage.get('restaurantRatings') || [];
+            const container = document.getElementById('recentRatings');
+            
+            if (ratings.length === 0) {
+                container.innerHTML = '<p style="text-align: center; color: var(--text-light);">No ratings yet. Be the first to rate!</p>';
+                return;
+            }
+            
+            container.innerHTML = ratings.slice(-5).reverse().map(rating => `
+                <div class="rating-item">
+                    <div class="rating-item-header">
+                        <span class="rating-item-user">${rating.userName}</span>
+                        <span class="rating-item-date">${formatDate(rating.date)}</span>
+                    </div>
+                    <div class="rating-display">
+                        <span class="rating-value">${rating.overall}/5</span>
+                        <div class="rating">
+                            ${Array(5).fill(0).map((_, i) => 
+                                `<span class="star ${i < rating.overall ? 'filled' : ''}">★</span>`
+                            ).join('')}
+                        </div>
+                    </div>
+                    ${rating.review ? `<p style="margin-top: 1rem;">${rating.review}</p>` : ''}
+                </div>
+            `).join('');
+        }
+
+        // Submit rating form
+        document.getElementById('ratingForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const name = document.getElementById('raterName').value;
+            const email = document.getElementById('raterEmail').value;
+            const phone = document.getElementById('raterPhone').value;
+            const overall = parseInt(document.getElementById('overallRatingInput').value);
+            const food = parseInt(document.getElementById('foodRatingInput').value);
+            const service = parseInt(document.getElementById('serviceRatingInput').value);
+            const ambiance = parseInt(document.getElementById('ambianceRatingInput').value);
+            const value = parseInt(document.getElementById('valueRatingInput').value);
+            const review = document.getElementById('reviewText').value;
+
+            if (!name || !email || !phone) {
+                showAlert('Please fill in all required information', 'error');
+                return;
+            }
+
+            if (overall === 0) {
+                showAlert('Please provide an overall rating', 'error');
+                return;
+            }
+
+            const rating = {
+                id: Date.now(),
+                userName: name,
+                email: email,
+                phone: phone,
+                overall: overall,
+                food: food,
+                service: service,
+                ambiance: ambiance,
+                value: value,
+                review: review,
+                date: new Date().toISOString()
+            };
+
+            let ratings = storage.get('restaurantRatings') || [];
+            ratings.push(rating);
+            storage.set('restaurantRatings', ratings);
+
+            showAlert('Thank you for your rating!', 'success');
+            this.reset();
+            document.querySelectorAll('.star').forEach(s => s.classList.remove('filled'));
+            loadRecentRatings();
+        });
+
+        // Load ratings on page load
+        loadRecentRatings();
+    </script>
+</body>
+</html>
+

@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Golden Fork Restaurant</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        .dashboard-container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .dashboard-header {
+            background: var(--dark-bg);
+            color: var(--white);
+            padding: 2rem;
+            border-radius: 10px;
+            margin-bottom: 2rem;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+        
+        .stat-card {
+            background: var(--white);
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+        
+        .admin-tabs {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+        
+        .admin-tab {
+            padding: 1rem 2rem;
+            background: var(--white);
+            border: 2px solid var(--primary-color);
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .admin-tab.active {
+            background: var(--primary-color);
+            color: var(--white);
+        }
+        
+        .admin-content {
+            background: var(--white);
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+        }
+        
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+        }
+        
+        .data-table th,
+        .data-table td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        .data-table th {
+            background: var(--light-bg);
+            font-weight: bold;
+        }
+        
+        .action-btn {
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-right: 0.5rem;
+        }
+        
+        .btn-edit {
+            background: var(--primary-color);
+            color: var(--white);
+        }
+        
+        .btn-delete {
+            background: var(--danger);
+            color: var(--white);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">Golden Fork</a>
+            <ul class="nav-menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="menu.html">Menu</a></li>
+                <li><a href="booking.html">Book Dish</a></li>
+                <li><a href="gallery.html">Gallery</a></li>
+                <li><a href="events.html">Events</a></li>
+                <li><a href="blog.html">Blog</a></li>
+                <li><a href="reviews.html">Reviews</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+            <button class="mobile-menu-toggle">☰</button>
+        </div>
+    </nav>
+
+    <!-- Admin Dashboard -->
+    <section class="section">
+        <div class="container dashboard-container">
+            <div class="dashboard-header">
+                <h1>Admin Dashboard</h1>
+                <p>Manage your restaurant operations</p>
+            </div>
+            
+            <!-- Stats -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number" id="totalBookings">0</div>
+                    <div>Total Bookings</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="totalOrders">0</div>
+                    <div>Total Orders</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="totalUsers">0</div>
+                    <div>Registered Users</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="avgRating">0.0</div>
+                    <div>Average Rating</div>
+                </div>
+            </div>
+            
+            <!-- Tabs -->
+            <div class="admin-tabs">
+                <button class="admin-tab active" onclick="showAdminTab('bookings')">Bookings</button>
+                <button class="admin-tab" onclick="showAdminTab('orders')">Orders</button>
+                <button class="admin-tab" onclick="showAdminTab('users')">Users</button>
+                <button class="admin-tab" onclick="showAdminTab('reviews')">Reviews</button>
+                <button class="admin-tab" onclick="showAdminTab('contacts')">Contact Forms</button>
+            </div>
+            
+            <!-- Content -->
+            <div class="admin-content">
+                <div id="bookingsTab" class="admin-tab-content">
+                    <h2>Manage Bookings</h2>
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Dish</th>
+                                <th>Customer</th>
+                                <th>Date & Time</th>
+                                <th>Type</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="bookingsTable">
+                            <!-- Bookings will be loaded here -->
+                        </tbody>
+                    </table>
+                </div>
+                
+                <div id="ordersTab" class="admin-tab-content" style="display: none;">
+                    <h2>Manage Orders</h2>
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Order ID</th>
+                                <th>Items</th>
+                                <th>Total</th>
+                                <th>Date</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="ordersTable">
+                            <!-- Orders will be loaded here -->
+                        </tbody>
+                    </table>
+                </div>
+                
+                <div id="usersTab" class="admin-tab-content" style="display: none;">
+                    <h2>Manage Users</h2>
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Phone</th>
+                                <th>Joined</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="usersTable">
+                            <!-- Users will be loaded here -->
+                        </tbody>
+                    </table>
+                </div>
+                
+                <div id="reviewsTab" class="admin-tab-content" style="display: none;">
+                    <h2>Manage Reviews</h2>
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>User</th>
+                                <th>Rating</th>
+                                <th>Review</th>
+                                <th>Date</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="reviewsTable">
+                            <!-- Reviews will be loaded here -->
+                        </tbody>
+                    </table>
+                </div>
+                
+                <div id="contactsTab" class="admin-tab-content" style="display: none;">
+                    <h2>Contact Form Submissions</h2>
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Subject</th>
+                                <th>Message</th>
+                                <th>Date</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="contactsTable">
+                            <!-- Contacts will be loaded here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Golden Fork</h3>
+                <p>Experience the finest culinary delights in a warm and welcoming atmosphere.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <a href="menu.html">Menu</a>
+                <a href="booking.html">Book Dish</a>
+                <a href="about.html">About Us</a>
+            </div>
+            <div class="footer-section">
+                <h3>Contact</h3>
+                <p>123 Restaurant Street</p>
+                <p>City, State 12345</p>
+                <p>Phone: (555) 123-4567</p>
+                <p>Email: info@goldenfork.com</p>
+            </div>
+            <div class="footer-section">
+                <h3>Follow Us</h3>
+                <a href="#">Facebook</a>
+                <a href="#">Instagram</a>
+                <a href="#">Twitter</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Golden Fork Restaurant. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="js/common.js"></script>
+    <script>
+        function showAdminTab(tabName) {
+            document.querySelectorAll('.admin-tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.admin-tab-content').forEach(t => t.style.display = 'none');
+            
+            event.target.classList.add('active');
+            document.getElementById(`${tabName}Tab`).style.display = 'block';
+            
+            if (tabName === 'bookings') loadBookingsTable();
+            if (tabName === 'orders') loadOrdersTable();
+            if (tabName === 'users') loadUsersTable();
+            if (tabName === 'reviews') loadReviewsTable();
+            if (tabName === 'contacts') loadContactsTable();
+        }
+
+        function loadStats() {
+            const bookings = storage.get('bookings') || [];
+            const orders = storage.get('orders') || [];
+            const users = storage.get('users') || [];
+            const ratings = storage.get('restaurantRatings') || [];
+            
+            document.getElementById('totalBookings').textContent = bookings.length;
+            document.getElementById('totalOrders').textContent = orders.length;
+            document.getElementById('totalUsers').textContent = users.length;
+            
+            if (ratings.length > 0) {
+                const avg = ratings.reduce((sum, r) => sum + r.overall, 0) / ratings.length;
+                document.getElementById('avgRating').textContent = avg.toFixed(1);
+            }
+        }
+
+        function loadBookingsTable() {
+            const bookings = storage.get('bookings') || [];
+            const tbody = document.getElementById('bookingsTable');
+            
+            tbody.innerHTML = bookings.map(booking => `
+                <tr>
+                    <td>#${booking.id}</td>
+                    <td>${booking.dish}</td>
+                    <td>Customer</td>
+                    <td>${formatDate(booking.date)} ${booking.time}</td>
+                    <td>${booking.type}</td>
+                    <td><span class="status-badge status-confirmed">${booking.status}</span></td>
+                    <td>
+                        <button class="action-btn btn-edit" onclick="editBooking(${booking.id})">Edit</button>
+                        <button class="action-btn btn-delete" onclick="deleteBooking(${booking.id})">Delete</button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        function loadOrdersTable() {
+            const orders = storage.get('orders') || [];
+            const tbody = document.getElementById('ordersTable');
+            
+            tbody.innerHTML = orders.map(order => {
+                const total = order.items.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+                return `
+                    <tr>
+                        <td>#${order.id}</td>
+                        <td>${order.items.length} item(s)</td>
+                        <td>$${total.toFixed(2)}</td>
+                        <td>${formatDate(order.createdAt)}</td>
+                        <td><span class="status-badge status-${order.status}">${order.status}</span></td>
+                        <td>
+                            <button class="action-btn btn-edit" onclick="updateOrderStatus(${order.id})">Update</button>
+                        </td>
+                    </tr>
+                `;
+            }).join('');
+        }
+
+        function loadUsersTable() {
+            const users = storage.get('users') || [];
+            const tbody = document.getElementById('usersTable');
+            
+            tbody.innerHTML = users.map(user => `
+                <tr>
+                    <td>${user.name}</td>
+                    <td>${user.email}</td>
+                    <td>${user.phone || 'N/A'}</td>
+                    <td>${formatDate(user.createdAt)}</td>
+                    <td>
+                        <button class="action-btn btn-edit">View</button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        function loadReviewsTable() {
+            const reviews = storage.get('restaurantRatings') || [];
+            const tbody = document.getElementById('reviewsTable');
+            
+            tbody.innerHTML = reviews.map(review => `
+                <tr>
+                    <td>${review.userName}</td>
+                    <td>${review.overall}/5</td>
+                    <td>${review.review || 'No review'}</td>
+                    <td>${formatDate(review.date)}</td>
+                    <td>
+                        <button class="action-btn btn-delete" onclick="deleteReview(${review.id})">Delete</button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        function loadContactsTable() {
+            const contacts = storage.get('contacts') || [];
+            const tbody = document.getElementById('contactsTable');
+            
+            tbody.innerHTML = contacts.map(contact => `
+                <tr>
+                    <td>${contact.name}</td>
+                    <td>${contact.email}</td>
+                    <td>${contact.subject}</td>
+                    <td>${contact.message.substring(0, 50)}...</td>
+                    <td>${formatDate(contact.date)}</td>
+                    <td>
+                        <button class="action-btn btn-edit">View</button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        function deleteBooking(id) {
+            if (confirm('Are you sure you want to delete this booking?')) {
+                let bookings = storage.get('bookings') || [];
+                bookings = bookings.filter(b => b.id !== id);
+                storage.set('bookings', bookings);
+                loadBookingsTable();
+                loadStats();
+            }
+        }
+
+        function deleteReview(id) {
+            if (confirm('Are you sure you want to delete this review?')) {
+                let reviews = storage.get('restaurantRatings') || [];
+                reviews = reviews.filter(r => r.id !== id);
+                storage.set('restaurantRatings', reviews);
+                loadReviewsTable();
+                loadStats();
+            }
+        }
+
+        function updateOrderStatus(id) {
+            const orders = storage.get('orders') || [];
+            const order = orders.find(o => o.id === id);
+            if (order) {
+                const statuses = ['preparing', 'ready', 'delivered', 'completed'];
+                const currentIndex = statuses.indexOf(order.status);
+                if (currentIndex < statuses.length - 1) {
+                    order.status = statuses[currentIndex + 1];
+                    storage.set('orders', orders);
+                    loadOrdersTable();
+                }
+            }
+        }
+
+        loadStats();
+        loadBookingsTable();
+    </script>
+</body>
+</html>
+
